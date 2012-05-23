@@ -108,9 +108,17 @@ The following is a list of features not yet implemented:
     - Item Classes
     
 ## Copyright and License ##
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">WoWThon</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Jonathan Goodger</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+<img alt="Creative Commons License" style="border-width:0"
+src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" />
+</a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+WoWThon</span> by <span xmlns:cc="http://creativecommons.org/ns#" 
+property="cc:attributionName">Jonathan Goodger</span> is licensed under a 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
 
-Note: Derivative works and API consumers are also bound by [Blizzard's API policy][api policy]
+Note: Derivative works and API consumers are also bound by
+ [Blizzard's API policy][api policy]
 
 Copyright © 2012 Jonathan Goodger
 
