@@ -10,3 +10,11 @@
 - Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
 
 - Item will probably need reforge() mutator
+
+- Consider using dict.get instead of try: except KeyError
+
+- May need to clone a lot of structures for immutability if necessary
+
+- Consider using dict.get instead of try: except KeyError
+
+- Error messages for non-existent players, etc. are delayed!

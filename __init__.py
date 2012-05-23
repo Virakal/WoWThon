@@ -7,16 +7,6 @@ __all__ = [
     'Auction', 'AuctionListings', 'Item', 'TalentSpec'
 ]
 
-
-# TODO Get exceptions in place
-# TODO Come up with better class documentation
-# TODO Find out what does and doesn't use locale
-# TODO A lot of data structures probably need cloning for immutability
-# TODO Eventually replace (most) dictionaries with WoWAPI methods
-# TODO Cache objects that already exist (don't duplicate realms, chars etc.)
-# TODO Consider using dict.get instead of try: except KeyError
-# TODO Characters under level 10, you say?
-
 #
 # Package imports
 #

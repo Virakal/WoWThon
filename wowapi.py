@@ -4,7 +4,6 @@ from urllib.error import HTTPError #, URLError # Need URLError?
 import json as jsonlib
 
 # Package Imports
-#from wowthon.realm import Realm
 import wowthon
 
 class WoWAPI(wowthon._FetchMixin):
@@ -63,13 +62,13 @@ class WoWAPI(wowthon._FetchMixin):
         self.private_key = private_key
         self.public_key = public_key
         self.region_prefix = wowthon.REGION[self.region]['prefix']
-        if self._locale_case(locale) in \
+        if not locale:
+            # Or use the default locale if none is set
+            self.locale = ''
+        elif self._locale_case(locale) in \
             wowthon.REGION[self.region]['locales']:
             # Ensure locale is valid for region
             self.locale = self._locale_case(locale)
-        elif not locale:    
-            # Or use the default locale if none is set
-            self.locale = ''
         else:
             raise ValueError('Illegal locale "' + locale +
                             '" passed for region "' + self.region + '".')
@@ -267,7 +266,7 @@ class WoWAPI(wowthon._FetchMixin):
         """
         return wowthon.Guild(self, name, realm, region, initial_fields)
         
-    def get_char(self, name, realm, region=None, initial_fields=[]):
+    def get_char(self, name, realm=None, region=None, initial_fields=[]):
         """
         Get a Character object for the specified character.
         
