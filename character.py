@@ -274,6 +274,7 @@ class Character(wowthon._FetchMixin):
     @property
     def talents(self):
         # NOTE Tuple might not be good if triple spec is ever on the cards
+        # NOTE Order first and second or selected, unselected?
         """
         Returns a tuple of `TalentSpec` objects.
         
@@ -281,10 +282,85 @@ class Character(wowthon._FetchMixin):
         self._add_field('talents')
         data = self._json_property('talents')
         if len(data) == 1:
-            return (TalentSpec(data[0]),)
+            return (TalentSpec(self._api, data[0]),)
         else:
-            return (TalentSpec(data[0]), TalentSpec(data[1]))
+            return (TalentSpec(self._api, data[0]), \
+                    TalentSpec(self._api, data[1]))
             
 class TalentSpec:
-    def __init__(self, data):
-        self.name = data['name']
+    """
+    Encapsulated a talent specification.
+    
+    This mostly just exposes the dictionary currently.
+    
+    """
+    def __init__(self, api, data):
+        """
+        Create a new talent spec from the dictionary provided.
+        
+        Arguments:
+        api -- WoWAPI to fetch glyph item data
+        data -- a talent spec dictionary
+        
+        """
+        self._data = data
+        #self._api = api
+        # Change glyphs around some
+        self._glyphs = {}
+        for key in self._data['glyphs']:
+            glist = []
+            for glyph in self._data['glyphs'][key]:
+                glist.append(
+                        {'id' : glyph['glyph'],
+                         'item' : wowthon.Item(api, glyph['item']),
+                         'name' : glyph['name'],
+                         'icon' : glyph['icon']
+                        }
+                    )
+            self._glyphs.update({key : glist})
+        
+    @property
+    def name(self):
+        """Return the name of the spec, e.g. 'Frost'."""
+        return self._data['name']
+        
+    @property
+    def selected(self):
+        """Return True if the spec is currently selected by the player."""
+        return self._data.get('selected', False)
+        
+    @property
+    def icon(self):
+        """Return the name of the talent spec's icon."""
+        return self._data['icon']
+        
+    @property
+    def build(self):
+        """Return a string representing the talent build."""
+        return self._data['build']
+        
+    @property
+    def glyphs(self):
+        """
+        Return a list of dictionaries representing chosen glyphs.
+        
+        The dicts contain the following keys:
+            id -- the glyph's id
+            name -- the name of the glyph
+            item -- a wowthon.Item representing the glyph item
+            icon -- the glyph's icon's name
+        
+        """
+        return self._glyphs
+        
+    def trees(self):
+        """
+        Returns a list of dicts corresponding to the three talent trees
+        with the following keys:
+        
+        total -- the total number of points invested in that tree
+        points -- a string representing the distribution of points for
+                  the tree
+        
+        """
+        return self._data['trees']
