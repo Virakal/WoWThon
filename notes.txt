@@ -1,0 +1,12 @@
+- Have Item() act as a factory for a bunch of subclasses? Might end up weird.
+- Probably not worth it. Can introspect with dir() or rely on item type field.
+
+- Caching objects
+  - Probably best to do this in constructors
+  - Cache likely needs to be checked in parameters
+  - Use a dict like:   
+        cache = {'eu' : {'realms' : {'draenor' : {'realm' : Realm(), 'chars' : {'Untamesbush' : Character(), 'Kegger' : Character()},}}
+
+- Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
+
+- Item will probably need reforge() mutator
