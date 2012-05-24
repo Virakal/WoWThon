@@ -1,6 +1,5 @@
 import wowthon
 
-# TODO Implement
 # TODO How to deal with criteria
 
 class Achievement(wowthon._FetchMixin):
@@ -33,7 +32,6 @@ class Achievement(wowthon._FetchMixin):
         self._id = id
         self._json = json
         self._url = wowthon.REGION[region]['prefix'] + self._PATH + str(id)
-        self._completed = None
         
     @property
     def id(self):
