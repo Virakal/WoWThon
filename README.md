@@ -92,9 +92,6 @@ The following is a list of features not yet implemented:
 - Items:
     - All
 
-- Quests:
-    - All
-
 - Achievements:
     - All
 
