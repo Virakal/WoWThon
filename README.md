@@ -111,7 +111,6 @@ The following is a list of features not yet implemented:
     - Pets
     - Achievements
     - Progression
-    - Quests
 
 - Data (List all):
     - Battlegroups
