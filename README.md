@@ -113,6 +113,7 @@ The following is a list of features not yet implemented:
     - Companions
     - Pets
     - Achievements
+    - Progression
     - Quests
 
 - Data (List all):
