@@ -1,11 +1,17 @@
-# WoWThon #
+﻿# WoWThon #
 ## Overview ##
 A wrapper for the [WoW community API][api docs] written in [Python 3][python].
 
-The API should be functional for WoW 4.3.x.
+The API should be functional for WoW 4.3.x. A bunch of stuff will likely break
+if this version is used after the Mists of Pandaria pre-patch.
+
+The eventual goal is to support all data exposed by Blizzard in some way.
+As of 2012-05-23, all data is provided except that listed in the [not yet
+implemented][nyi] section below.
 
 [api docs]: http://blizzard.github.com/api-wow-docs/
 [python]: http://www.python.org/
+[nyi]: #not-yet-implemented
 
 ## Usage ##
 The WoWThon folder must be in your system path or the folder in which your
@@ -42,10 +48,20 @@ and we can then treat these objects in a fairly intuitive manner.
 A more complete documentation will be written soon. Additional help can be
 found in the class and method docstrings.
 
+## Features ##
+WoWThon attempts to provide a simple and easy to use front end for the CP API.
+Data is accessed through object properties and only fetched from the server
+when it is actually needed. For the largest part, all interaction with the
+server is done behind the scenes.
+
+Where possible, every attempt was made to avoid making further lookups from
+the server explicitly. For example, the Guild.members property contains not
+a list of member IDs but a list of fully functional Character objects.
 
 ## Todo ##
 The following is a list of tasks still to be done, or considered:
 
+- 'Last modified' checking
 - Method of installing
 - Exceptions and error code handling
 - Authentication
@@ -57,6 +73,7 @@ The following is a list of tasks still to be done, or considered:
 - Considering moving the constants to API methods, or moving the
   API's static methods out in to the wowthon package
 - Caching of results and other peformance boosts
+- Add more examples
 
 ## Not Yet Implemented ##
 The following is a list of features not yet implemented:
@@ -120,6 +137,6 @@ Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
 Note: Derivative works and API consumers are also bound by
  [Blizzard's API policy][api policy]
 
-Copyright � 2012 Jonathan Goodger
+Copyright © 2012 Jonathan Goodger
 
 [api policy]: http://blizzard.github.com/api-wow-docs/#idp56608
