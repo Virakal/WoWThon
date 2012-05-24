@@ -4,7 +4,7 @@ __version__ = '0.2.1a'
 
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character',
-    'Auction', 'AuctionListings', 'Item', 'TalentSpec'
+    'Auction', 'AuctionListings', 'Item', 'TalentSpec', 'Quest'
 ]
 
 #
