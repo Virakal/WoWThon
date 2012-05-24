@@ -412,6 +412,17 @@ class Character(wowthon._FetchMixin):
             ret.append(wowthon.Quest(self._api, quest))
         return ret
         
+    @property
+    def companions(self):
+        """
+        Returns a list of spell IDs representing companion pets owned by the
+        character.
+        
+        """
+        # TODO Spell object
+        self._add_field('companions')
+        return self._json_property('companions')
+    
 class TalentSpec:
     """
     Encapsulated a talent specification.
