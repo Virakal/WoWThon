@@ -93,8 +93,10 @@ The following is a list of features not yet implemented:
 
 - Items:
     - All
+    - Possibly missed some some item fields
 
 - Guild:
+    - *The following are currently exposed as raw dictionaries*:
     - Guild achievements
     - Guild perks
     - Guild rewards
