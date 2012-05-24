@@ -357,6 +357,36 @@ class Character(wowthon._FetchMixin):
         self._add_field('professions')
         return self._json_property('professions')['primary'], \
                self._json_property('professions')['secondary']
+               
+    @property
+    def appearance(self):
+        """
+        Returns a dictionary containing details of the character's appearance.
+        The dictionary has the following fields:
+        
+        face_variation -- an id of the face variation
+        skin_color -- an id of the skin colour
+        hair_variation -- an id of the hair variation
+        hair_color -- an id of the hair color
+        feature_variation -- an id of the facial features
+        show_helm -- True if the character chooses to display their helm
+        show_cloak -- True if the character chooses to display their cloak
+        
+        """
+        self._add_field('appearance')
+        app = self._json_property('appearance')
+        
+        # Get rid of camel case
+        pyapp = {
+            'face_variation' : app['faceVariation'],
+            'skin_color' : app['skinColor'],
+            'hair_variation' : app['hairVariation'],
+            'hair_color' : app['hairColor'],
+            'feature_variation' : app['featureVariation'],
+            'show_helm' : app['showHelm'],
+            'show_cloak' : app['showCloak']
+        }    
+        return pyapp
         
 class TalentSpec:
     """
