@@ -88,6 +88,18 @@ class Realm(wowthon._FetchMixin):
         # NOTE Does not need a fetch
         return self._region
         
+    @property
+    def auctions(self):
+        """
+        Returns a `wowthon.AuctionListings` object for the realm's auction
+        houses.
+        
+        Note: These can be very slow calls as they block on large data
+        downloads.
+        
+        """
+        return wowthon.AuctionListings(self._api, self.slug, self.region)
+        
     def pvp_zone_status(self, zone):
         """
         Return a dictionary representing the status of the specified PvP zone.
