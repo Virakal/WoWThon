@@ -345,6 +345,18 @@ class Character(wowthon._FetchMixin):
         self._add_field('pvp')
         return self._json_property('pvp')['ratedBattlegrounds'] \
                ['battlegrounds']
+               
+    @property
+    def professions(self):
+        """
+        Returns a 2-tuple of lists of dictionaries. The first is a list of
+        primary professions and the second is a list of secondary professions.
+        
+        """
+        # TODO Profession objects might be nice. Get recipe info from wowhead?
+        self._add_field('professions')
+        return self._json_property('professions')['primary'], \
+               self._json_property('professions')['secondary']
         
 class TalentSpec:
     """
