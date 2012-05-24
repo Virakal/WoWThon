@@ -4,7 +4,8 @@ __version__ = '0.2.1a'
 
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character',
-    'Auction', 'AuctionListings', 'Item', 'TalentSpec', 'Quest'
+    'Auction', 'AuctionListings', 'Item', 'TalentSpec', 'Quest',
+    'Achievement'
 ]
 
 #
@@ -18,6 +19,7 @@ from wowthon.character import Character, TalentSpec
 from wowthon.auctions import Auction, AuctionListings
 from wowthon.item import Item
 from wowthon.quest import Quest
+from wowthon.achievement import Achievement
 
 # Hide package structure
 del fetch
@@ -28,6 +30,7 @@ del character
 del auctions
 del item
 del quest
+del achievement
 
 #
 # Global constants
@@ -102,7 +105,6 @@ CLASSES = {
     7  : 'shaman',
     8  : 'mage',
     9  : 'warlock',
-    #10 : '', # monk?
     11 : 'druid'
 }
 
