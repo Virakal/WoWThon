@@ -92,9 +92,6 @@ The following is a list of features not yet implemented:
 - Items:
     - All
 
-- Achievements:
-    - All
-
 - Guild:
     - Guild achievements
     - Guild perks
@@ -119,6 +116,7 @@ The following is a list of features not yet implemented:
     - Guild Perks
     - Guild Rewards
     - Item Classes
+    - Recipes (Add to character professions too)
     
 ## Copyright and License ##
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
