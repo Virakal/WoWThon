@@ -128,6 +128,8 @@ class Character(wowthon._FetchMixin):
         `wowthon.CLASSES` provides a map of these to their
         English equivalents.
         
+        Note: This is class_ as class is a keyword.
+        
         """
         return self._json_property('class')
         
@@ -286,7 +288,64 @@ class Character(wowthon._FetchMixin):
         else:
             return (TalentSpec(self._api, data[0]), \
                     TalentSpec(self._api, data[1]))
+                    
+    @property
+    def honor_kills(self):
+        """Return the number of honorable kills a player has earned."""
+        self._add_field('pvp')
+        return self._json_property('pvp')['totalHonorableKills']
+        
+    @property
+    def arena_teams(self):
+        """
+        Return a list of dictionaries representing the player's arena teams.
+        The dictionary has the following fields:
+        
+        name -- the name of the team
+        personal_rating -- the characters's personal rating
+        team_rating -- the team's rating
+        size -- the team size (c.f. wowthon.TEAM_SIZES)
+        
+        """
+        self._add_field('pvp')
+        teams = self._json_property('pvp')['arenaTeams']
+        
+        pyteams = []
+        # Get rid of camel case
+        for team in teams:
+            pyteam = {
+                'name' : team['name'],
+                'personal_rating' : team['personalRating'],
+                'team_rating' : team['teamRating'],
+                'size' : team['size']
+            }
+            pyteams.append(pyteam)
             
+        return pyteams
+        
+    @property
+    def rbg_rating(self):
+        """Returns the character's personal rated battleground rating"""
+        self._add_field('pvp')
+        return self._json_property('pvp')['ratedBattlegrounds'] \
+               ['personalRating']
+        
+    @property
+    def rbg_info(self):
+        """
+        Returns a list of dictionaries detailing win data for each
+        battleground. The dictionaries have the following fields:
+        
+        name -- the name of the battleground
+        played -- the number of games played
+        won -- the number of games won
+        
+        """
+        # TODO Add win ratios? Totals?
+        self._add_field('pvp')
+        return self._json_property('pvp')['ratedBattlegrounds'] \
+               ['battlegrounds']
+        
 class TalentSpec:
     """
     Encapsulated a talent specification.
@@ -352,7 +411,8 @@ class TalentSpec:
         
         """
         return self._glyphs
-        
+    
+    @property
     def trees(self):
         """
         Returns a list of dicts corresponding to the three talent trees
