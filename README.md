@@ -26,9 +26,10 @@ the server explicitly. For example, the Guild.members property contains not
 a list of member IDs but a list of fully functional Character objects.
 
 ## Usage ##
-The WoWthon folder must be in your system path or the folder in which your
-client application resides in order to use the API. The system path may be
-modified using the sys.path variable within Python.
+WoWthon must be in a folder called `wowthon` and must be in your Python path
+or the folder in which your client application resides in order to use the
+API. The Python path may be modified using the sys.path variable within 
+Python.
 
 The module can then be imported using `import wowthon`.
 
@@ -79,6 +80,7 @@ The following is a list of tasks still to be done, or considered:
 - Eventually replace most or all dicts with objects?
 - Wowhead integration for data not exposed by Blizzard (particularly spells)
 - Add more examples
+- Make it so that the package actually contains a `wowthon` folder.
 
 ## Not Yet Implemented ##
 The following is a list of features not yet implemented:
