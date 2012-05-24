@@ -116,8 +116,8 @@ The following is a list of features not yet implemented:
 
 - Data (List all):
     - Battlegroups
-    - Classes(?)
-    - Races(?)
+    - Classes (*currently hardcoded*)
+    - Races (*currently hardcoded*)
     - Achievements
     - Guild Achievements
     - Guild Perks
