@@ -272,3 +272,24 @@ class WoWAPI(wowthon._FetchMixin):
         
         """
         return wowthon.Character(self, name, realm, region, initial_fields)
+        
+    def get_achieve(self, id, region=None, locale=None):
+        """
+        Get an Achievement object for the specified ID.
+        
+        """
+        return wowthon.Achievement(self, id, region=region, locale=locale)
+        
+    def get_quest(self, id, region=None, locale=None):
+        """
+        Return a Quest object for the specified ID.
+        
+        """
+        return wowthon.Quest(self, id, region=region, locale=locale)
+        
+    def get_item(self, id, region=None, locale=None):
+        """
+        Return an Item object for the specified ID.
+        
+        """
+        return wowthon.Item(self, id, region=region, locale=locale)
