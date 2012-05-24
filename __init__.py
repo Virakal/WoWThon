@@ -1,6 +1,6 @@
 __author__ = 'Jonathan Goodger (jonno.is@gmail.com) (Untamedbush@Draenor-EU)'
 
-__version__ = '0.2a'
+__version__ = '0.2.1a'
 
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character',
@@ -27,7 +27,10 @@ del character
 del auctions
 del item
 
+#
 # Global constants
+#
+
 #: A list of valid regions.
 REGIONS = ['eu', 'us', 'kr', 'tw', 'cn']
 
@@ -140,5 +143,15 @@ REALM_TYPES = [
     'rppvp',
 ]
 
+#: A list of valid arena team sizes
+TEAM_SIZES = [
+    '5v5',
+    '3v3',
+    '2v2'
+]
+
+#
 # Exceptions
+#
+
 # TODO ...
