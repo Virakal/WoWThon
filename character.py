@@ -422,6 +422,29 @@ class Character(wowthon._FetchMixin):
         # TODO Spell object
         self._add_field('companions')
         return self._json_property('companions')
+        
+    @property
+    def pets(self):
+        """
+        Return a list of dictionaries detailing a character's combat pets.
+        The dictionary has the following fields:
+        
+        name -- the name of the pet, chosen by the player
+        creature -- the NPC id of the pet
+        slot -- the id of the slot taken in the character's stable
+        
+        
+        Returns `None` if the player does not have a pet (i.e. they are not
+        a hunter.)
+        
+        """
+        self._add_field('pets')
+        try:
+            return self._json_property('pets')
+        except KeyError:
+            # Make sure they aren't a hunter if they don't have pets
+            assert self.class_ != 3
+            return None
     
 class TalentSpec:
     """
