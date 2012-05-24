@@ -162,8 +162,11 @@ class Character(wowthon._FetchMixin):
     @property
     def thumbnail_url(self):
         """Returns a URL to a thumbnail image of the character."""
-        # TODO add regional prefix
-        return self._json_property('thumbnail')
+        # NOTE This might not work for all regions, especially not China
+        filename = self._json_property('thumbnail')
+        url = 'http://' + self.region + '.battle.net/static-render/' + \
+               self.region + '/' + filename
+        return url
         
     @property
     def guild_rank(self):
