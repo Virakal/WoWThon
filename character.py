@@ -398,6 +398,20 @@ class Character(wowthon._FetchMixin):
         self._add_field('mounts')
         return self._json_property('mounts')
         
+    @property
+    def quests(self):
+        """
+        Returns a list of `wowthon.Quest` objects representing quests
+        completed by the character.        
+        
+        """
+        self._add_field('quests')
+        quests = self._json_property('quests')
+        ret = []
+        for quest in quests:
+            ret.append(wowthon.Quest(self._api, quest))
+        return ret
+        
 class TalentSpec:
     """
     Encapsulated a talent specification.
