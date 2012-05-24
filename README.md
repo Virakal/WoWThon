@@ -33,7 +33,7 @@ modified using the sys.path variable within Python.
 The module can then be imported using `import wowthon`.
 
 The first step is usually to create a new WoWAPI object. A WoWAPI object
-provifes a connection point for retrieving data from the Blizzard servers
+provides a connection point for retrieving data from the Blizzard servers
 along with several useful static methods. An API is defined for an individual
 realm. To create one for my home realm:
 
@@ -110,8 +110,6 @@ The following is a list of features not yet implemented:
     - Feed
     - Items
     - Reputation
-    - Professions
-    - Appearance
     - Companions
     - Pets
     - Achievements
