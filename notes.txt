@@ -1,6 +1,3 @@
-- Have Item() act as a factory for a bunch of subclasses? Might end up weird.
-- Probably not worth it. Can introspect with dir() or rely on item type field.
-
 - Caching objects
   - Probably best to do this in constructors
   - Cache likely needs to be checked in parameters
@@ -15,6 +12,6 @@
 
 - May need to clone a lot of structures for immutability if necessary
 
-- Consider using dict.get instead of try: except KeyError
+- Consider using dict.get instead of try: except KeyError (don't think this is reasonable usually)
 
 - Error messages for non-existent players, etc. are delayed!
