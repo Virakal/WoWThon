@@ -18,6 +18,7 @@ class Quest(wowthon._FetchMixin):
         region -- the API region to use (default: api default)
         locale -- the locale to use (default: api default)
         json -- a dictionary to use instead of fetching from the server
+                (default: None)
         
         """
         # TODO Implement locale
@@ -57,5 +58,3 @@ class Quest(wowthon._FetchMixin):
     def level(self):
         """Return the level of the quest."""
         return self._json_property('level')
-        
-        
