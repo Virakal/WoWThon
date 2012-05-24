@@ -388,6 +388,16 @@ class Character(wowthon._FetchMixin):
         }    
         return pyapp
         
+    @property
+    def mounts(self):
+        """
+        Return a list of spell IDs relating to mounts.
+        
+        """
+        # TODO Spell object with wowhead, one day :)
+        self._add_field('mounts')
+        return self._json_property('mounts')
+        
 class TalentSpec:
     """
     Encapsulated a talent specification.
