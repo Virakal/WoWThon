@@ -19,6 +19,8 @@ Data is accessed through object properties and only fetched from the server
 when it is actually needed. For the largest part, all interaction with the
 server is done behind the scenes.
 
+A caveat of this is that error messages may sometimes be somewhat delayed.
+
 Where possible, every attempt was made to avoid making further lookups from
 the server explicitly. For example, the Guild.members property contains not
 a list of member IDs but a list of fully functional Character objects.
@@ -61,6 +63,7 @@ found in the class and method docstrings.
 ## Todo ##
 The following is a list of tasks still to be done, or considered:
 
+- More comprehensive testing (many unit tests lost)
 - 'Last modified' checking
 - Method of installing
 - Exceptions and error code handling
@@ -111,7 +114,6 @@ The following is a list of features not yet implemented:
     - Pets
     - Achievements
     - Progression
-    - PvP
     - Quests
 
 - Data (List all):
