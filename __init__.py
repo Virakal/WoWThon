@@ -1,11 +1,9 @@
 __author__ = 'Jonathan Goodger (jonno.is@gmail.com) (Untamedbush@Draenor-EU)'
-
 __version__ = '0.2.1a'
 
 __all__ = [
-    'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character',
-    'Auction', 'AuctionListings', 'Item', 'TalentSpec', 'Quest',
-    'Achievement'
+    'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
+    'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement'
 ]
 
 #
