@@ -107,7 +107,6 @@ The following is a list of features not yet implemented:
     - Feed
     - Items
     - Reputation
-    - Pets
     - Achievements
     - Progression
 
