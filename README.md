@@ -13,6 +13,16 @@ implemented][nyi] section below.
 [python]: http://www.python.org/
 [nyi]: #not-yet-implemented
 
+## Features ##
+WoWThon attempts to provide a simple and easy to use front end for the CP API.
+Data is accessed through object properties and only fetched from the server
+when it is actually needed. For the largest part, all interaction with the
+server is done behind the scenes.
+
+Where possible, every attempt was made to avoid making further lookups from
+the server explicitly. For example, the Guild.members property contains not
+a list of member IDs but a list of fully functional Character objects.
+
 ## Usage ##
 The WoWThon folder must be in your system path or the folder in which your
 client application resides in order to use the API. The system path may be
@@ -47,16 +57,6 @@ and we can then treat these objects in a fairly intuitive manner.
     
 A more complete documentation will be written soon. Additional help can be
 found in the class and method docstrings.
-
-## Features ##
-WoWThon attempts to provide a simple and easy to use front end for the CP API.
-Data is accessed through object properties and only fetched from the server
-when it is actually needed. For the largest part, all interaction with the
-server is done behind the scenes.
-
-Where possible, every attempt was made to avoid making further lookups from
-the server explicitly. For example, the Guild.members property contains not
-a list of member IDs but a list of fully functional Character objects.
 
 ## Todo ##
 The following is a list of tasks still to be done, or considered:
