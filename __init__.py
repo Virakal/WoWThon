@@ -17,6 +17,7 @@ from wowthon.guild import Guild, GuildEmblem
 from wowthon.character import Character, TalentSpec
 from wowthon.auctions import Auction, AuctionListings
 from wowthon.item import Item
+from wowthon.quest import Quest
 
 # Hide package structure
 del fetch
@@ -26,6 +27,7 @@ del guild
 del character
 del auctions
 del item
+del quest
 
 #
 # Global constants
