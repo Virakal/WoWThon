@@ -1,4 +1,4 @@
-﻿# WoWThon #
+﻿# WoWthon #
 ## Overview ##
 A wrapper for the [WoW community API][api docs] written in [Python 3][python].
 
@@ -26,7 +26,7 @@ the server explicitly. For example, the Guild.members property contains not
 a list of member IDs but a list of fully functional Character objects.
 
 ## Usage ##
-The WoWThon folder must be in your system path or the folder in which your
+The WoWthon folder must be in your system path or the folder in which your
 client application resides in order to use the API. The system path may be
 modified using the sys.path variable within Python.
 
@@ -71,11 +71,13 @@ The following is a list of tasks still to be done, or considered:
 - Implement locales (find out what does and doesn't need locale)
 - Improve documentation, especially at class level, provide
   tutorial-style guidance.
-- Deal with characters under level 10 in some way, especially for
-  guild listings
+- Deal with characters under level 10 in some way, can appear in guild
+  listings but can't be directly accessed
 - Considering moving the constants to API methods, or moving the
   API's static methods out in to the wowthon package
 - Caching of results and other peformance boosts
+- Eventually replace most or all dicts with objects?
+- Wowhead integration for data not exposed by Blizzard (particularly spells)
 - Add more examples
 
 ## Not Yet Implemented ##
@@ -113,7 +115,6 @@ The following is a list of features not yet implemented:
     - Companions
     - Pets
     - Achievements
-    - Progression
     - Quests
 
 - Data (List all):
@@ -131,7 +132,7 @@ The following is a list of features not yet implemented:
 <img alt="Creative Commons License" style="border-width:0"
 src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" />
 </a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
-WoWThon</span> by <span xmlns:cc="http://creativecommons.org/ns#" 
+WoWthon</span> by <span xmlns:cc="http://creativecommons.org/ns#" 
 property="cc:attributionName">Jonathan Goodger</span> is licensed under a 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
 Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
