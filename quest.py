@@ -28,32 +28,34 @@ class Quest(wowthon._FetchMixin):
         self._json = json
         self._url = wowthon.REGION[region]['prefix'] + self._PATH + str(id)
         
-        @property
-        def id(self):
-            """Return the quest id."""
-            return self._id
-            
-        @property
-        def title(self):
-            """Return the title, or name, of the quest."""
-            return self._json_property('title')
-            
-        @property
-        def req_level(self):
-            """Return the minimum required level for the quest."""
-            return self._json_property('reqLevel')
-            
-        @property
-        def suggested_party_members(self):
-            """Return the number of suggested party members for the quest."""
-            return self._json_property('suggestedPartyMembers')
-            
-        @property
-        def category(self):
-            """Return the quest category associated with the quest."""
-            return self._json_property('category')
-            
-        @property
-        def level(self):
-            """Return the level of the quest."""
-            return self._json_property('level')
+    @property
+    def id(self):
+        """Return the quest id."""
+        return self._id
+        
+    @property
+    def title(self):
+        """Return the title, or name, of the quest."""
+        return self._json_property('title')
+        
+    @property
+    def req_level(self):
+        """Return the minimum required level for the quest."""
+        return self._json_property('reqLevel')
+        
+    @property
+    def suggested_party_members(self):
+        """Return the number of suggested party members for the quest."""
+        return self._json_property('suggestedPartyMembers')
+        
+    @property
+    def category(self):
+        """Return the quest category associated with the quest."""
+        return self._json_property('category')
+        
+    @property
+    def level(self):
+        """Return the level of the quest."""
+        return self._json_property('level')
+        
+        
