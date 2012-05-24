@@ -67,6 +67,7 @@ class Guild(wowthon._FetchMixin):
         
         """
         # TODO Ensure fields are valid
+        # TODO Implement locale
         fields = ''
         if self._fields and with_fields:
             fields = '?fields='
