@@ -119,7 +119,6 @@ class Achievement(wowthon._FetchMixin):
         size -- the size of the icon (default: 56)
         
         """
-        # http://tw.media.blizzard.com/wow/icons/56/inv_helmet_plate_raidpaladin_i_01.jpg
         region = self._api.region
         url = 'http://' + region + '.media.blizzard.com/wow/icons/'+ \
                str(size) + '/' + self.icon + '.jpg'
