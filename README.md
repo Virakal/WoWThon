@@ -92,7 +92,7 @@ The following is a list of features not yet implemented:
     - Authentication
 
 - Items:
-    - All
+    - Partially implemented
     - Possibly missed some some item fields
 
 - Guild:
