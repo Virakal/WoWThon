@@ -1,4 +1,4 @@
-# TODO Currently a dummy
+﻿# TODO Currently a dummy
 # NOTE http://tw.media.blizzard.com/wow/icons/56/inv_helmet_plate_raidpaladin_i_01.jpg
 import wowthon
 
@@ -8,6 +8,11 @@ class Item(wowthon._FetchMixin):
     
     """
     _PATH = 'item/'
+    
+    TRIGGERS = [
+        'ON_USE',
+        'ON_EQUIP'
+    ]
     
     def __init__(self, api, id, region=None, locale=None, json=None):
         """
@@ -146,6 +151,75 @@ class Item(wowthon._FetchMixin):
         """
         return self._json_property('bonusStats')
         
+    @property
+    def item_spells(self):
+        """
+        Returns a list of dictionaries detailing spells associated with the
+        item. These are the item's "on use" or "on equip" effects.
+        
+        The dictionary has the following fields:
+        id -- the spell id
+        charges -- the number of charges the item has
+        consumable -- True if the item is consumed when the charges expire
+        category -- a spell category id
+        trigger -- when the spell is triggered (possible values can be found
+                   in Item.TRIGGERS)
+                   
+        along with possibly a spell field containing a dict with the following
+        fields:
+        id -- the spell id
+        name -- the spell name
+        icon -- the spell icon
+        description -- a spell description
+        cast_time (optional) -- a string identifying the cast time
+        cooldown (optional) -- a string describing the spell cooldown
+        
+        Note: spell will likely be rplaced with a Spell object when the spell
+        API is released.
+        
+        """
+        spells = self._json_property('itemSpells')
+        ret = []
+        for spell in spells:
+            pyspell = {
+                'id' : spell['spellId'],
+                'charges' : spell['nCharges'],
+                'consumable' : spell['consumable'],
+                'category' : spell['categoryId'],
+                'trigger' : spell['trigger']
+            }
+            # Add spell if it exists
+            try:
+                sfield = spell['spell']
+                pysfield = {
+                    'id' : sfield['id'],
+                    'name' : sfield['name'],
+                    'icon' : sfield['icon'],
+                    'description' : sfield['description']
+                }
+                cast_time = sfield.get('castTime', None)
+                cooldown = sfield.get('cooldown', None)
+                if cast_time:
+                    # Cast time exists, add that
+                    pysfield.update({'cast_time' : cast_time})
+                if cooldown:
+                    # Cooldown exists, add that
+                    pysfield.update({'cooldown' : cooldown})
+                pyspell.update({'spell' : pysfield})
+            except KeyError:
+                # No spell field
+                pass
+            ret.append(pyspell)
+        return ret
+        
+    @property
+    def buy_price(self):
+        """
+        Return the purchase brice for the item from the vendor.
+        
+        """
+        return self._json_property('buyPrice')
+    
     def icon_url(self, size=56):
         """
         Returns a URL to the icon on the Blizzard servers of the specified
