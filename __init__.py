@@ -154,7 +154,8 @@ TEAM_SIZES = [
 
 #: A dictionary mapping faction level ids to their English names
 FACTION_LEVELS = {
-    1 : 'hated',
+    0 : 'hated'
+    1 : 'hostile',
     2 : 'unfriendly',
     3 : 'neutral',
     4 : 'friendly',
