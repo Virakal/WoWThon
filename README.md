@@ -1,6 +1,6 @@
 ﻿# WoWthon #
 ## Overview ##
-A wrapper for the World of Warcraft[wow] [community platform API][api docs]
+A wrapper for the [World of Warcraft][wow] [community platform API][api docs]
 written in [Python 3][python].
 
 The API should be functional for WoW 4.3.x. A bunch of stuff will likely break
