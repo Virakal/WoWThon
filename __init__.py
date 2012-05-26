@@ -152,6 +152,17 @@ TEAM_SIZES = [
     '2v2'
 ]
 
+#: A dictionary mapping faction level ids to their English names
+FACTION_LEVELS = {
+    1 : 'hated',
+    2 : 'unfriendly',
+    3 : 'neutral',
+    4 : 'friendly',
+    5 : 'honored',
+    6 : 'revered',
+    7 : 'exalted',
+}
+
 #
 # Exceptions
 #
