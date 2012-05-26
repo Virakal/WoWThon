@@ -12,6 +12,15 @@ class Item(wowthon._FetchMixin):
         'ON_EQUIP'
     ]
     
+    SOCKET_TYPES = [
+        'RED',
+        'YELLOW',
+        'BLUE',
+        'META',
+        'PRISMATIC',
+        'COGWHEEL',
+    ]
+    
     def __init__(self, api, id, region=None, locale=None, json=None):
         """
         Create a new Item object using the specified API, for the Item `id`.
@@ -322,7 +331,248 @@ class Item(wowthon._FetchMixin):
         
         """
         return self._json_property('maxDurability')
-    
+        
+    @property
+    def min_faction_id(self):
+        """
+        Returns the id of the faction required to use the item.
+        
+        Returns 0 if the item is not restricted by faction.
+        
+        See also: `Item.min_reputation`
+        
+        """
+        # TODO Test
+        return self._json_property('minFactionId')
+        
+    @property
+    def min_reputation(self):
+        """
+        Return the minimum reputation level required to use the item.
+        
+        This is represented by an integer. A map of integers to their English
+        equivalents can be found at `wowthon.FACTION_LEVELS`.
+        
+        Returns 0 if the item is not restricted by faction.
+        
+        See also: `Item.min_faction_id`
+        
+        """
+        # TODO Test
+        return self._json_property('minReputation')
+        
+    @property
+    def quality(self):
+        """
+        Returns an integer representing the item's quality, that is, whether
+        an item is epic, legendary, or so on.
+        
+        A map of the identifiers to their English equivalents may be found in
+        `wowthon.ITEM_QUALITY`.
+        
+        """
+        # TODO Test
+        return self._json_property('quality')
+        
+    @property
+    def sell_price(self):
+        """
+        Returns the sell price, or vendor price, of the item.
+        
+        Returns 0 if the item cannot be sold to a vendor.
+        
+        """
+        # TODO Test
+        return self._json_property('sellPrice')
+        
+    @property
+    def required_skill(self):
+        """
+        Returns an id representing the required profession for using the item.
+        
+        Returns 0 if a profession is not required.
+        
+        See also: `Item.required_skill_rank`
+        
+        """
+        # TODO Test
+        return self._json_property('requiredSkill')
+       
+    @property
+    def required_level(self):
+        """
+        Return the minimum required character level to use the item.
+        
+        Returns 0 if the item is not limited.
+        
+        """
+        # TODO Test
+        return self._json_property('requiredLevel')
+        
+    @property
+    def required_skill_rank(self):
+        """
+        Returns the minimum profession level, or rank, required to use the
+        item.
+        
+        Returns 0 if a profession is not required.
+        
+        See also: `Item.required_skill`
+        
+        """
+        # TODO Test
+        return self._json_property('requiredSkillRank')
+        
+    @property
+    def base_armor(self):
+        """
+        Return the base armor of the item.
+        
+        This will be the same as `Item.armor` unless the item has bonus armor,
+        in which case `Item.armor` will be higher.
+        
+        Returns 0 if the item provides no armor.
+        
+        See also:
+        `Item.armor`,
+        `Item.bonus_armor`
+        
+        """
+        # TODO Test
+        return self._json_property('baseArmor')
+        
+    @property
+    def has_sockets(self):
+        """
+        Returns True if the item has sockets, for gems or cogwheels.
+        
+        See also:
+        `Item.socket_info`
+        
+        """
+        # TODO Test
+        return self._json_property('hasSockets')
+        
+    @property
+    def socket_info(self):
+        """
+        Returns information on the item's sockets as a dictionary.
+        
+        The dictionary has two fields:
+        sockets -- a list of socket identifiers
+        bonus -- a description of the socket bonus
+        
+        Possible socket identifiers are listed in `Item.SOCKET_TYPES`
+        
+        Returns None if the item has no sockets.
+        
+        See also:
+        `Item.has_sockets`
+        
+        """
+        # TODO Test
+        try:
+            data = self._json_property('socketInfo')
+        except KeyError:
+            # No sockets
+            return None
+            
+        bonus = data['socketBonus']
+        sockets = []
+        for socket in data['sockets']:
+            sockets.append(socket['type'])
+            
+        ret = {
+            'sockets' : sockets,
+            'bonus' : bonus
+        }
+        
+        return ret
+        
+    @property
+    def auctionable(self):
+        """
+        Returns True if the item may be placed on an Auction House.
+        
+        """
+        return self._json_property('isAuctionable')
+        
+    @property
+    def armor(self):
+        """
+        Returns the armor value of the item.
+        
+        If the item has no bonus armor, this value will be equal to
+        `Item.base_armor`, otherwise, this value will be the higher.
+        
+        Returns 0 if the item does not provide armor.
+        
+        See also:
+        `Item.base_armor`,
+        `Item.bonus_armor`
+        
+        """
+        # TODO Test
+        return self._json_property('armor')
+        
+    @property
+    def bonus_armor(self):
+        """
+        Returns the bonus armor value of the item.
+        
+        This is the amount of "extra" armor the item has.
+        
+        Returns 0 if the item does not provide armor or has no bonus armor.
+        
+        See also:
+        `Item.base_armor`,
+        `Item.armor`
+        
+        """
+        # TODO Test
+        return self.armor - self.base_armor
+        
+    @property
+    def display_info_id(self):
+        """
+        Returns an id number representing the item's model and skin.
+        
+        """
+        # TODO Test
+        return self._json_property('displayInfoId')
+        
+    @property
+    def disenchanting_rank(self):
+        """
+        Return the minimum enchanting skill required to disenchant the item.
+        
+        Returns None if the item can not be disenchanted.
+        
+        """
+        # TODO Test
+        try:
+            return self._json_property('disenchantingSkillRank')
+        except KeyError:
+            return None
+            
+    @property
+    def source(self):
+        """
+        Returns a dictionary detailing an item's source.
+        
+        The dictionary has two fields:
+        id -- the source's id
+        type -- the source type (e.g. "CREATED_BY_SPELL")
+        
+        """
+        # TODO Test
+        data = self._json_parameter('itemSource')
+        ret = {
+            'id' : data['sourceId'],
+            'type' : data['sourceType']
+        }
+        return ret
+        
     def icon_url(self, size=56):
         """
         Returns a URL to the icon on the Blizzard servers of the specified
