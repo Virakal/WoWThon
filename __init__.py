@@ -164,6 +164,8 @@ FACTION_LEVELS = {
     7 : 'exalted',
 }
 
+# Thanks to Ulminia for this
+#: A map of stat ids to their English tooltip valuess
 STAT_IDS = {
     1  : '+{amount} Health',
     2  : '+{amount} Mana',
