@@ -1,9 +1,10 @@
 - Caching objects
-  - Probably best to do this in constructors
+  - Probably best to do this in constructors or api.get_X
   - Cache likely needs to be checked in parameters
   - Use a dict like:   
-        cache = {'eu' : {'realms' : {'draenor' : {'realm' : Realm(), 'chars' : {'Untamesbush' : Character(), 'Kegger' : Character()},}}
-
+      cache = {'eu' : {'realms' : {'draenor' : {'realm' : Realm(), 'chars' : {'Untamesbush' : Character(), 'Kegger' : Character()},}}
+  - Sometimes data is regenerated for every call (when custom dicts are made), not perfect
+  
 - Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
 
 - Item will probably need reforge() mutator
@@ -15,3 +16,7 @@
 - Consider using dict.get instead of try: except KeyError (don't think this is reasonable usually)
 
 - Error messages for non-existent players, etc. are delayed!
+
+- Character.can_use_item() would be cool!
+
+- Wowhead &power exposes data well (e.g. http://www.wowhead.com/spell=580&power)
