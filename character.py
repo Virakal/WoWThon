@@ -1,4 +1,4 @@
-import wowthon
+﻿import wowthon
 
 class Character(wowthon._FetchMixin):
     """
