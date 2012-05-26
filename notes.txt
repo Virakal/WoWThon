@@ -20,3 +20,5 @@
 - Character.can_use_item() would be cool!
 
 - Wowhead &power exposes data well (e.g. http://www.wowhead.com/spell=580&power)
+
+- Sphinx or similar for docs would be nice
