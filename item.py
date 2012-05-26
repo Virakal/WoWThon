@@ -339,10 +339,10 @@ class Item(wowthon._FetchMixin):
         
         Returns 0 if the item is not restricted by faction.
         
-        See also: `Item.min_reputation`
+        See also:
+        `Item.min_reputation`
         
         """
-        # TODO Test
         return self._json_property('minFactionId')
         
     @property
@@ -355,10 +355,10 @@ class Item(wowthon._FetchMixin):
         
         Returns 0 if the item is not restricted by faction.
         
-        See also: `Item.min_faction_id`
+        See also:
+        `Item.min_faction_id`
         
         """
-        # TODO Test
         return self._json_property('minReputation')
         
     @property
@@ -371,7 +371,6 @@ class Item(wowthon._FetchMixin):
         `wowthon.ITEM_QUALITY`.
         
         """
-        # TODO Test
         return self._json_property('quality')
         
     @property
@@ -382,7 +381,6 @@ class Item(wowthon._FetchMixin):
         Returns 0 if the item cannot be sold to a vendor.
         
         """
-        # TODO Test
         return self._json_property('sellPrice')
         
     @property
@@ -395,7 +393,6 @@ class Item(wowthon._FetchMixin):
         See also: `Item.required_skill_rank`
         
         """
-        # TODO Test
         return self._json_property('requiredSkill')
        
     @property
@@ -406,7 +403,6 @@ class Item(wowthon._FetchMixin):
         Returns 0 if the item is not limited.
         
         """
-        # TODO Test
         return self._json_property('requiredLevel')
         
     @property
@@ -420,7 +416,6 @@ class Item(wowthon._FetchMixin):
         See also: `Item.required_skill`
         
         """
-        # TODO Test
         return self._json_property('requiredSkillRank')
         
     @property
