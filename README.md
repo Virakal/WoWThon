@@ -64,9 +64,8 @@ found in the class and method docstrings.
 ## Todo ##
 The following is a list of tasks still to be done, or considered:
 
-- More comprehensive testing (many unit tests lost)
+- More comprehensive testing (many unit tests lost :( )
 - 'Last modified' checking
-- Method of installing
 - Exceptions and error code handling
 - Authentication
 - Implement locales (find out what does and doesn't need locale)
@@ -80,6 +79,7 @@ The following is a list of tasks still to be done, or considered:
 - Eventually replace most or all dicts with objects?
 - Wowhead integration for data not exposed by Blizzard (particularly spells)
 - Add more examples
+- Method of installing
 - Make it so that the package actually contains a `wowthon` folder.
 
 ## Not Yet Implemented ##
@@ -92,8 +92,11 @@ The following is a list of features not yet implemented:
     - Authentication
 
 - Items:
-    - Partially implemented
-    - Possibly missed some some item fields
+    - Sets
+    - Source lookup
+    - Reforge data list
+    - Stat id lookup
+    - Possibly missed some some item fields?
 
 - Guild:
     - *The following are currently exposed as raw dictionaries*:
