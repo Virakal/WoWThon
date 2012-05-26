@@ -1,5 +1,5 @@
 __author__ = 'Jonathan Goodger (jonno.is@gmail.com) (Untamedbush@Draenor-EU)'
-__version__ = '0.2.1a'
+__version__ = '0.3.0a'
 
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
@@ -164,6 +164,57 @@ FACTION_LEVELS = {
     7 : 'exalted',
 }
 
+STAT_IDS = {
+    1  : '+{amount} Health',
+    2  : '+{amount} Mana',
+    3  : '+{amount} Agility',
+    4  : '+{amount} Strength',
+    5  : '+{amount} Intellect',
+    6  : '+{amount} Spirit',
+    7  : '+{amount} Stamina',
+    46 : 'Equip: Restores {amount} health per 5 sec.',
+    44 : 'Equip: Increases your armor penetration rating by {amount}.',
+    38 : 'Equip: Increases attack power by {amount}.',
+    15 : 'Equip: Increases your shield block rating by {amount}.',
+    48 : 'Equip: Increases the block value of your shield by {amount}.',
+    19 : 'Equip: Improves melee critical strike rating by {amount}.',
+    20 : 'Equip: Improves ranged critical strike rating by {amount}.',
+    32 : 'Equip: Increases your critical strike rating by {amount}.',
+    21 : 'Equip: Improves spell critical strike rating by {amount}.',
+    25 : 'Equip: Improves melee critical avoidance rating by {amount}.',
+    26 : 'Equip: Improves ranged critical avoidance rating by {amount}.',
+    34 : 'Equip: Improves critical avoidance rating by {amount}.',
+    27 : 'Equip: Improves spell critical avoidance rating by {amount}.',
+    12 : 'Equip: Increases defense rating by {amount}.',
+    13 : 'Equip: Increases your dodge rating by {amount}.',
+    37 : 'Equip: Increases your expertise rating by {amount}.',
+    40 : 'Equip: Increases attack power by {amount} in Cat, Bear, ' + \
+         'Dire Bear, and Moonkin forms only.',
+    28 : 'Equip: Improves melee haste rating by {amount}.',
+    29 : 'Equip: Improves ranged haste rating by {amount}.',
+    36 : 'Equip: Increases your haste rating by {amount}.',
+    30 : 'Equip: Improves spell haste rating by {amount}.',
+    16 : 'Equip: Improves melee hit rating by {amount}.',
+    17 : 'Equip: Improves ranged hit rating by {amount}.',
+    31 : 'Equip: Increases your hit rating by {amount}.',
+    18 : 'Equip: Improves spell hit rating by {amount}.',
+    22 : 'Equip: Improves melee hit avoidance rating by {amount}.',
+    23 : 'Equip: Improves ranged hit avoidance rating by {amount}.',
+    33 : 'Equip: Improves hit avoidance rating by {amount}.',
+    24 : 'Equip: Improves spell hit avoidance rating by {amount}.',
+    43 : 'Equip: Restores {amount} mana per 5 sec.',
+    49 : 'Equip: Increases your mastery rating by {amount}.',
+    14 : 'Equip: Increases your parry rating by {amount}.',
+    39 : 'Equip: Increases ranged attack power by {amount}.',
+    35 : 'Equip: Increases your resilience rating by {amount}.',
+    41 : 'Equip: Increases damage done by magical spells and effects ' + \
+         'by up to {amount}.',
+    42 : 'Equip: Increases healing done by magical spells and effects ' + \
+         'by up to {amount}.',
+    47 : 'Equip: Increases spell penetration by {amount}.',
+    45 : 'Equip: Increases spell power by {amount}.'
+}
+    
 #
 # Exceptions
 #
