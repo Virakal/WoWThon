@@ -1,6 +1,7 @@
 ﻿# WoWthon #
 ## Overview ##
-A wrapper for the [WoW community API][api docs] written in [Python 3][python].
+A wrapper for the World of Warcraft[wow] [community platform API][api docs]
+written in [Python 3][python].
 
 The API should be functional for WoW 4.3.x. A bunch of stuff will likely break
 if this version is used after the Mists of Pandaria pre-patch.
@@ -9,6 +10,7 @@ The eventual goal is to support all data exposed by Blizzard in some way.
 As of 2012-05-23, all data is provided except that listed in the [not yet
 implemented][nyi] section below.
 
+[wow]: http://us.battle.net/wow/
 [api docs]: http://blizzard.github.com/api-wow-docs/
 [python]: http://www.python.org/
 [nyi]: #not-yet-implemented
