@@ -1,6 +1,4 @@
-﻿# TODO Currently a dummy
-# NOTE http://tw.media.blizzard.com/wow/icons/56/inv_helmet_plate_raidpaladin_i_01.jpg
-import wowthon
+﻿import wowthon
 
 class Item(wowthon._FetchMixin):
     """
@@ -219,6 +217,111 @@ class Item(wowthon._FetchMixin):
         
         """
         return self._json_property('buyPrice')
+        
+    @property
+    def item_class(self):
+        """
+        Return the class id of the item.
+        
+        """
+        return self._json_property('itemClass')
+        
+    @property
+    def item_subclass(self):
+        """
+        Return the subclass id of the item.
+        
+        """
+        return self._json_property('itemSubClass')
+        
+    @property
+    def container_slots(self):
+        """
+        Return the number of slots a container has.
+        
+        Returns 0 if the item is not a container.
+        
+        """
+        return self._json_property('containerSlots')
+        
+    @property
+    def container(self):
+        """
+        Returns True if the item is a container (e.g. a bag).
+        
+        """
+        return True if self.container_slots else False
+        
+    @property
+    def weapon_info(self):
+        """
+        Return a dictionary describing the weapon information for an item.
+        
+        Returns None if the item is not a weapon.
+        
+        The dictionary has the following fields:
+        min_damage -- the weapon's minimum damage
+        max_damage -- the weapon's maximum damage
+        speed -- the weapon's attack speed
+        dps -- the weapon's damage per second
+        
+        """
+        try:
+            data = self._json_property('weaponInfo')
+        except KeyError:
+            return None
+        ret = {
+            'min_damage' : data['damage']['min'],
+            'max_damage' : data['damage']['max'],
+            'speed' : data['weaponSpeed'],
+            'dps' : data['dps'],
+        }
+        return ret
+        
+    @property
+    def inventory_type(self):
+        """
+        Returns the inventory type id for the item.
+        
+        """
+        return self._json_property('inventoryType')
+        
+    @property
+    def equippable(self):
+        """
+        Returns True if the item is equippable.
+        
+        """
+        return self._json_property('equippable')
+    
+    @property
+    def item_level(self):
+        """
+        Return the item's item level or ilevel.
+        
+        """
+        return self._json_property('itemLevel')
+        
+    @property
+    def max_count(self):
+        """
+        Return the maximum number of items that may exist in an inventory
+        at any one time.
+        
+        Returns 0 if there is no limit.
+        
+        """
+        return self._json_property('maxCount')
+        
+    @property
+    def max_durability(self):
+        """
+        Returns the maximum durability level of an object.
+        
+        Returns 0 if the item does not have durability.
+        
+        """
+        return self._json_property('maxDurability')
     
     def icon_url(self, size=56):
         """
