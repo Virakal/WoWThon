@@ -133,7 +133,7 @@ property="cc:attributionName">Jonathan Goodger</span> is licensed under a
 Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
 
 Note: Derivative works and API consumers are also bound by
- [Blizzard's API policy][api policy]
+[Blizzard's API policy][api policy].
 
 Copyright © 2012 Jonathan Goodger
 
