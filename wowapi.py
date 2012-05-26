@@ -183,6 +183,19 @@ class WoWAPI(wowthon._FetchMixin):
         
         if id in ally: return 0
         if id in horde: return 1
+        
+    @staticmethod
+    def stat_string(id, amount):
+        """
+        Takes a stat id and amount and produces an English string representing
+        the way that it would appear in the tooltip.
+        
+        For example:
+            stat_string(7,130) returns:
+            '+130 stamina'
+        
+        """
+        return wowthon.STAT_IDS[id].format(amount=amount)
     
     def _get_json(self, url):
         """Make a dictionary from the JSON file at `url`"""
