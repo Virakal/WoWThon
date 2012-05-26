@@ -560,6 +560,35 @@ class Item(wowthon._FetchMixin):
         }
         return ret
         
+    @property
+    def required_ability(self):
+        """
+        Returns a dictionary detailing the ability required to use the item.
+        
+        The dictionary has the following fields:
+        id -- the spell id for the ability
+        name -- the name of the ability
+        description -- a description of the ability
+        
+        Returns None if the item does not have a required ability.
+        
+        See also:
+        `Item.required_skill`
+        
+        """
+        try:
+            data = self._json_property('requiredAbility')
+        except KeyError:
+            return None
+        
+        ret = {
+            'id' : data['spellId'],
+            'name' : data['name'],
+            'description' : data['description']
+        }
+        
+        return ret
+        
     def icon_url(self, size=56):
         """
         Returns a URL to the icon on the Blizzard servers of the specified
