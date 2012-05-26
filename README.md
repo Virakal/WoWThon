@@ -63,6 +63,18 @@ and we can then treat these objects in a fairly intuitive manner.
 A more complete documentation will be written soon. Additional help can be
 found in the class and method docstrings.
 
+## Requirements ##
+WoWthon requires Python 3 and has been tested on CPython 3.2.2.
+
+The `urllib` and `json` modules are required, supplied with the standard
+Python distribution.
+
+Applications naturally require a functional internet connection to obtain
+data from the Blizzard servers and are also bound by the community platform
+API's [usage policy][usage].
+
+[usage]: http://blizzard.github.com/api-wow-docs/#idp26536
+
 ## Todo ##
 The following is a list of tasks still to be done, or considered:
 
