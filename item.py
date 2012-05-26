@@ -433,7 +433,6 @@ class Item(wowthon._FetchMixin):
         `Item.bonus_armor`
         
         """
-        # TODO Test
         return self._json_property('baseArmor')
         
     @property
@@ -445,7 +444,6 @@ class Item(wowthon._FetchMixin):
         `Item.socket_info`
         
         """
-        # TODO Test
         return self._json_property('hasSockets')
         
     @property
@@ -465,7 +463,6 @@ class Item(wowthon._FetchMixin):
         `Item.has_sockets`
         
         """
-        # TODO Test
         try:
             data = self._json_property('socketInfo')
         except KeyError:
@@ -507,7 +504,6 @@ class Item(wowthon._FetchMixin):
         `Item.bonus_armor`
         
         """
-        # TODO Test
         return self._json_property('armor')
         
     @property
@@ -524,7 +520,6 @@ class Item(wowthon._FetchMixin):
         `Item.armor`
         
         """
-        # TODO Test
         return self.armor - self.base_armor
         
     @property
@@ -533,7 +528,6 @@ class Item(wowthon._FetchMixin):
         Returns an id number representing the item's model and skin.
         
         """
-        # TODO Test
         return self._json_property('displayInfoId')
         
     @property
@@ -544,7 +538,6 @@ class Item(wowthon._FetchMixin):
         Returns None if the item can not be disenchanted.
         
         """
-        # TODO Test
         try:
             return self._json_property('disenchantingSkillRank')
         except KeyError:
@@ -560,8 +553,7 @@ class Item(wowthon._FetchMixin):
         type -- the source type (e.g. "CREATED_BY_SPELL")
         
         """
-        # TODO Test
-        data = self._json_parameter('itemSource')
+        data = self._json_property('itemSource')
         ret = {
             'id' : data['sourceId'],
             'type' : data['sourceType']
