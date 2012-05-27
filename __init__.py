@@ -1,4 +1,4 @@
-__author__ = 'Jonathan Goodger (jonno.is@gmail.com) (Untamedbush@Draenor-EU)'
+﻿__author__ = 'Jonathan Goodger (jonno.is@gmail.com) (Untamedbush@Draenor-EU)'
 __version__ = '0.3.0a'
 
 __all__ = [
