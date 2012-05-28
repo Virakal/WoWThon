@@ -603,3 +603,87 @@ class Item(wowthon._FetchMixin):
                str(size) + '/' + self.icon + '.jpg'
         return url
         
+class ItemSet(wowthon._FetchMixin):
+    """
+    Encapsulates an item set.
+    
+    """
+    
+    _PATH = 'item/set/'
+    
+    def __init__(self, api, id, region=None, locale=None, json=None):
+        """
+        Creates a new item set.
+        
+        Arguments:
+        api -- the WoWAPI instance to use
+        id -- the set id
+        
+        Optional Arguments:
+        region -- the region to use for the data (default: api setting)
+        locale -- the locale to use for the data (default: api setting)
+        json -- a prebuilt dictionary to collect data from (default: None)
+        
+        """
+        if not region: region = api.region
+        if not locale: locale = api.locale
+        self._api = api
+        self._id = id
+        self._region = region
+        self._locale = locale
+        self._json = json
+        self._url = wowthon.REGION[region]['prefix'] + self._PATH + str(id)
+        
+    @property
+    def id(self):
+        """
+        Return the item set's id.
+        
+        """
+        return self._id
+        
+    @property
+    def region(self):
+        """
+        Return the region code the item set uses.
+        
+        """
+        return self._region
+        
+    @property
+    def locale(self):
+        """
+        Return the locale of the item.
+        
+        """
+        return self._locale
+        
+    @property
+    def name(self):
+        """
+        Return the name of the item set.
+        
+        """
+        return self._json_property('name')
+        
+    @property
+    def bonuses(self):
+        """
+        Return a list of dictionaries defining the set bonuses.
+        The dictionaries have the following fields:
+        
+        description -- a description of the bonus conferred
+        threshold -- the number of items required to confer the bonus
+        
+        """
+        return self._json_property('setBonuses')
+        
+    def bonuses_with_items(self, count):
+        """
+        Returns a list of all bonuses conferred with `count` number of items
+        from the set equipped.
+        
+        Returns an empty list if no bonuses are given.
+        
+        """
+        return [x for x in self.bonuses if x['threshold'] <= count]
