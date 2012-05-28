@@ -3,7 +3,8 @@ __version__ = '0.3.0a'
 
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
-    'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement'
+    'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement',
+    'ItemSet'
 ]
 
 #
@@ -15,7 +16,7 @@ from wowthon.realm import Realm
 from wowthon.guild import Guild, GuildEmblem
 from wowthon.character import Character, TalentSpec
 from wowthon.auctions import Auction, AuctionListings
-from wowthon.item import Item
+from wowthon.item import Item, ItemSet
 from wowthon.quest import Quest
 from wowthon.achievement import Achievement
 
