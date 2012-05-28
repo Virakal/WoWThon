@@ -106,10 +106,7 @@ The following is a list of features not yet implemented:
     - Authentication
 
 - Items:
-    - Sets
     - Source lookup
-    - Reforge data list
-    - Stat id lookup
     - Possibly missed some some item fields?
 
 - Guild:
