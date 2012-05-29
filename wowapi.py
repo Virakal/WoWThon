@@ -195,7 +195,14 @@ class WoWAPI(wowthon._FetchMixin):
             '+130 stamina'
         
         """
-        return wowthon.STAT_IDS[id].format(amount=amount)
+        name = wowthon.STAT_NAMES[id]
+        ret = name.format(amount=amount)
+        # If the stat starts with +, like +x Stamina, and amount is -ve
+        if amount < 0:
+            if name.startswith('+'):
+                # Chop off the leading +
+                ret = ret[1:]
+        return ret
     
     def _get_json(self, url):
         """Make a dictionary from the JSON file at `url`"""
