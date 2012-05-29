@@ -167,7 +167,7 @@ FACTION_LEVELS = {
 
 # Thanks to Ulminia for this
 #: A map of stat ids to their English tooltip valuess
-STAT_IDS = {
+STAT_NAMES = {
     1  : '+{amount} Health',
     2  : '+{amount} Mana',
     3  : '+{amount} Agility',
