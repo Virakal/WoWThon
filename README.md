@@ -75,7 +75,7 @@ API's [usage policy][usage].
 
 [usage]: http://blizzard.github.com/api-wow-docs/#idp26536
 
-## Todo ##
+## Future ##
 The following is a list of tasks still to be done, or considered:
 
 - More comprehensive testing (many unit tests lost :( )
@@ -107,6 +107,7 @@ The following is a list of features not yet implemented:
 
 - Items:
     - Source lookup
+    - Mutability (regorge(), socket())?
     - Possibly missed some some item fields?
 
 - Guild:
@@ -116,7 +117,7 @@ The following is a list of features not yet implemented:
     - Guild rewards
 
 - PvP:
-    - All
+    - Ladders
 
 - Characters:
     - Feed
