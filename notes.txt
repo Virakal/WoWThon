@@ -1,5 +1,5 @@
 - Caching objects
-  - Probably best to do this in constructors or api.get_X
+  - Probably best to do this in api.get_X
   - Cache likely needs to be checked in parameters
   - Use a dict like:   
       cache = {'eu' : {'realms' : {'draenor' : {'realm' : Realm(), 'chars' : {'Untamesbush' : Character(), 'Kegger' : Character()},}}
@@ -7,18 +7,18 @@
   
 - Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
 
-- Item will probably need reforge() mutator
-
 - Consider using dict.get instead of try: except KeyError
 
 - May need to clone a lot of structures for immutability if necessary
 
 - Consider using dict.get instead of try: except KeyError (don't think this is reasonable usually)
 
-- Error messages for non-existent players, etc. are delayed!
-
 - Character.can_use_item() would be cool!
 
 - Wowhead &power exposes data well (e.g. http://www.wowhead.com/spell=580&power)
 
 - Sphinx or similar for docs would be nice
+
+- Rating conversion calculators?
+
+- MutableItem(wowthon.Item) could be a good idea. Items can be cached then.
