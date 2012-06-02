@@ -146,6 +146,7 @@ WoWthon</span> by <span xmlns:cc="http://creativecommons.org/ns#"
 property="cc:attributionName">Jonathan Goodger</span> is licensed under a 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
 Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
+No warranty is supplied with this product.
 
 Note: Derivative works and API consumers are also bound by
 [Blizzard's API policy][api policy].
