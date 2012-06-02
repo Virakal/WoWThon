@@ -310,6 +310,7 @@ class Character(wowthon._FetchMixin):
         size -- the team size (c.f. wowthon.TEAM_SIZES)
         
         """
+        # TODO Change this to a list of ArenaTeam objects?
         self._add_field('pvp')
         teams = self._json_property('pvp')['arenaTeams']
         
