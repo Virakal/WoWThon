@@ -148,12 +148,12 @@ REALM_TYPES = [
     'rppvp',
 ]
 
-#: A list of valid arena team sizes
-TEAM_SIZES = [
-    '5v5',
-    '3v3',
-    '2v2'
-]
+#: A map of valid arena team sizes and their string equivalents
+TEAM_SIZES = {
+    2 : '2v2',
+    3 : '3v3',
+    5 : '5v5'
+}
 
 #: A dictionary mapping faction level ids to their English names
 FACTION_LEVELS = {
