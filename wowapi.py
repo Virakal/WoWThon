@@ -313,3 +313,12 @@ class WoWAPI(wowthon._FetchMixin):
         
         """
         return wowthon.Item(self, id, region=region, locale=locale)
+        
+    def get_arena_team(self, size, name, realm=None, region=None,
+                       locale=None):
+        """
+        Return the arena team specified.
+        
+        """
+        return wowthon.ArenaTeam(self, size, name, realm=realm, region=region,
+                                 locale=locale)
