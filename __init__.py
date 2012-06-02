@@ -4,7 +4,7 @@ __version__ = '0.3.0a'
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
     'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement',
-    'ItemSet'
+    'ItemSet', 'ArenaTeam'
 ]
 
 #
@@ -19,6 +19,7 @@ from wowthon.auctions import Auction, AuctionListings
 from wowthon.item import Item, ItemSet
 from wowthon.quest import Quest
 from wowthon.achievement import Achievement
+from wowthon.pvp import ArenaTeam
 
 # Hide package structure
 del fetch
@@ -30,6 +31,7 @@ del auctions
 del item
 del quest
 del achievement
+del pvp
 
 #
 # Global constants
