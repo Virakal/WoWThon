@@ -1,4 +1,4 @@
-import urllib.request
+﻿import urllib.request
 from urllib.error import HTTPError #, URLError # Need URLError?
 
 class _FetchMixin:

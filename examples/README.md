@@ -1,4 +1,4 @@
-# WoWthon Examples #
+﻿# WoWthon Examples #
 ## Overview ##
 A set of small example scripts demonstrating the use of WoWthon.
 

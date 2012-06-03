@@ -1,4 +1,4 @@
-- Caching objects
+﻿- Caching objects
   - Probably best to do this in api.get_X
   - Cache likely needs to be checked in parameters
   - Use a dict like:   

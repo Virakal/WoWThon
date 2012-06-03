@@ -1,4 +1,4 @@
-# WoWthon Tests #
+﻿# WoWthon Tests #
 ## Overview ##
 A set of test scripts and unit tests to ensure correct functionality.
 

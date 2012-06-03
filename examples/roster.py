@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 '''
 This example script produces an HTML roster for my guild and prints it to
 standard output.

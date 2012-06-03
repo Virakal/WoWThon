@@ -1,4 +1,4 @@
-import wowthon
+﻿import wowthon
 
 # TODO How to deal with criteria
 

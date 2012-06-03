@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+﻿#! /usr/bin/env python
 '''
 This script builds a unit test for every realm in every region to ensure that
 the static `wowthon.WoWAPI.realm_name_to_slug` method works correctly and is

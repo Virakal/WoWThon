@@ -1,4 +1,4 @@
-import wowthon
+﻿import wowthon
 
 class Guild(wowthon._FetchMixin):
     """

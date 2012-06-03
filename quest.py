@@ -1,4 +1,4 @@
-import wowthon
+﻿import wowthon
 
 class Quest(wowthon._FetchMixin):
     """
