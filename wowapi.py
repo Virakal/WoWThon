@@ -53,7 +53,7 @@ class WoWAPI(wowthon._FetchMixin):
         
         """
         # TODO Implement public and private key
-        if type(realm) == wowthon.Realm:
+        if isinstance(realm, wowthon.Realm):
             realm = realm.slug
         realm = self.realm_name_to_slug(realm)
         
@@ -86,6 +86,7 @@ class WoWAPI(wowthon._FetchMixin):
             "en_US"
         
         """
+        if not s: return ''
         lang, dialect = tuple(s.split('_'))
         return lang.lower() + '_' + dialect.upper()
         
@@ -221,7 +222,8 @@ class WoWAPI(wowthon._FetchMixin):
         locale -- The locale to use (default None)
         
         """
-        #if not self.locale: return prefix # FIXME What was I doing here?
+        # Don't return a string if there is no locale
+        if not self.locale: return prefix
         if not locale and not self.locale:
             locale = ''
         elif not locale:
