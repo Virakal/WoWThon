@@ -72,6 +72,8 @@ class WoWAPI(wowthon._FetchMixin):
         else:
             raise ValueError('Illegal locale "' + locale +
                             '" passed for region "' + self.region + '".')
+                            
+        self._cache = {}
         
     @staticmethod
     def _locale_case(s):
@@ -281,40 +283,103 @@ class WoWAPI(wowthon._FetchMixin):
             ret.append(wowthon.Realm(self, realm, region, locale))
         return ret
         
-    def get_guild(self, name, realm=None, region=None, initial_fields=None):
+    def get_guild(self, name, realm=None, region=None, initial_fields=None,
+                  use_cache=True):
         """
         Return a Guild object for the specified guild.
         
         """
-        return wowthon.Guild(self, name, realm, region, initial_fields)
+        if not region: region = self.region
+        if not realm: realm = self.realm
+        if isinstance(realm, str):
+            realm = self.get_realm(realm)[0]
+        if use_cache:
+            cdata = self._cache_fetch(region, 'guild', realm.slug,
+                                      name.lower())
+            if cdata:
+                # print('Using cached data for guild', name, 'on', realm)
+                return cdata
+        # Requested to not use cache, return new quest without updating
+        # the cache.
+        data = wowthon.Guild(self, name, realm, region, initial_fields)
+        self._cache_set(data, region, 'guild', realm.slug, name.lower())
+        return data
         
-    def get_char(self, name, realm=None, region=None, initial_fields=[]):
+    def get_char(self, name, realm=None, region=None, initial_fields=None,
+                 use_cache=True):
         """
         Get a Character object for the specified character.
         
         """
-        return wowthon.Character(self, name, realm, region, initial_fields)
+        if not region: region = self.region
+        if not realm: realm = self.realm
+        if isinstance(realm, str):
+            realm = self.get_realm(realm)[0]
+        if use_cache:
+            cdata = self._cache_fetch(region, 'char', realm.slug,
+                                      name.lower())
+            if cdata:
+                # print('Using cached data for character', name, 'on' realm)
+                return cdata
+        # Requested to not use cache, return new quest without updating
+        # the cache.
+        data = wowthon.Character(self, name, realm, region, initial_fields)
+        self._cache_set(data, region, 'char', realm.slug, name.lower())
+        return data
         
-    def get_achieve(self, id, region=None, locale=None):
+    def get_achieve(self, id, region=None, locale=None, use_cache=True):
         """
         Get an Achievement object for the specified ID.
         
         """
-        return wowthon.Achievement(self, id, region=region, locale=locale)
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'ach', id)
+            if cdata:
+                # print('Using cached data for achieve', id) # Debug
+                return cdata
+        # Requested to not use cache, return new quest without updating
+        # the cache.
+        data = wowthon.Achievement(self, id, region=region, locale=locale)
+        self._cache_set(data, region, locale, 'ach', id)
+        return data
         
-    def get_quest(self, id, region=None, locale=None):
+    def get_quest(self, id, region=None, locale=None, use_cache=True):
         """
         Return a Quest object for the specified ID.
         
         """
-        return wowthon.Quest(self, id, region=region, locale=locale)
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'quest', id)
+            if cdata:
+                # print('Using cached data for quest', id) # Debug
+                return cdata
+        # Requested to not use cache, return new quest without updating
+        # the cache.
+        data = wowthon.Quest(self, id, region=region, locale=locale)
+        self._cache_set(data, region, locale, 'quest', id)
+        return data
         
-    def get_item(self, id, region=None, locale=None):
+    def get_item(self, id, region=None, locale=None, use_cache=True):
         """
         Return an Item object for the specified ID.
         
         """
-        return wowthon.Item(self, id, region=region, locale=locale)
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'item', id)
+            if cdata:
+                # print('Using cached data for item', id) # Debug
+                return cdata
+        # Requested to not use cache, return new item without updating
+        # the cache.
+        data = wowthon.Item(self, id, region=region, locale=locale)
+        self._cache_set(data, region, locale, 'item', id)
+        return data
         
     def get_arena_team(self, size, name, realm=None, region=None,
                        locale=None):
@@ -324,3 +389,39 @@ class WoWAPI(wowthon._FetchMixin):
         """
         return wowthon.ArenaTeam(self, size, name, realm=realm, region=region,
                                  locale=locale)
+                                 
+    def _cache_fetch(self, *args):
+        """
+        Returns an object from the cache.
+        
+        Returns None if the object is not cached.
+        
+        """
+        c = self._cache
+        for field in args:
+            data = c.get(field)
+            if not data:
+                # Field not found, object is not cached
+                return None
+            # Otherwise, move to the next field
+            c = data
+        return c
+        
+    def _cache_set(self, obj, *args):
+        """
+        Caches the object `obj` at path `args`.
+        
+        """
+        self._cache_set_helper(self._cache, obj, args)
+        
+    def _cache_set_helper(self, d, obj, path):
+        # TODO Add last_modified here?
+        # Recursively create cache structure
+        if len(path) > 1:
+            if not d.get(path[0]):
+                d.update({path[0] : {}})
+            # Add the first element of the path
+            self._cache_set_helper(d[path[0]], obj, path[1:])
+        else:
+            # and set the final item in the path to obj
+            d.update({path[0] : obj})
