@@ -79,7 +79,7 @@ API's [usage policy][usage].
 The following is a list of tasks still to be done, or considered:
 
 - More comprehensive testing (many unit tests lost :( )
-- 'Last modified' checking
+- 'Last modified' checking(!)
 - Exceptions and error code handling
 - Authentication
 - Implement locales (find out what does and doesn't need locale)
@@ -89,8 +89,7 @@ The following is a list of tasks still to be done, or considered:
   listings but can't be directly accessed
 - Considering moving the constants to API methods, or moving the
   API's static methods out in to the wowthon package
-- Caching of results and other peformance boosts
-- Eventually replace most or all dicts with objects?
+- Eventually replace most or all dicts with objects
 - Wowhead integration for data not exposed by Blizzard (particularly spells)
 - Add more examples
 - Method of installing
