@@ -114,8 +114,7 @@ class Auction:
         
         """
         if not self._owner:
-            self._owner = Character(
-                self._api,
+            self._owner = self._api.get_char(
                 self._json['owner'],
                 self._realm,
                 self._region
@@ -151,10 +150,7 @@ class Auction:
         """
         # TODO Use Item object instead
         if not self_item:
-            self._item = Item(
-                               self._api,
-                               self._json['item']
-                              )
+            self._item = self._api.get_item(self._json['item'])
         return self._item
         
     @property
