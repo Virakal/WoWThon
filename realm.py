@@ -131,5 +131,5 @@ class Realm(wowthon._FetchMixin):
         Return the specified character from this realm.
         
         """
-        return wowthon.Character(self._api, name, self.slug, self.region,
+        return self._api.get_char(name, self.slug, self.region,
                         initial_fields)
