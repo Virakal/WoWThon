@@ -140,14 +140,13 @@ class Guild(wowthon._FetchMixin):
         member_list = self._json_property('members')
         ret = []
         for member in member_list:
-            char = wowthon.Character(
-                                     self._api,
-                                     member['character']['name'],
-                                     self.realm,
-                                     self.region,
-                                     json=member['character']
-                                    )
-            char._g_rank = member['rank']
+            char = self._api.get_char(
+                                      member['character']['name'],
+                                      self.realm,
+                                      self.region,
+                                      json=member['character']
+                                     )
+            #char._g_rank = member['rank']
             ret.append((member['rank'],char))
                                   
         return ret
