@@ -284,47 +284,55 @@ class WoWAPI(wowthon._FetchMixin):
         return ret
         
     def get_guild(self, name, realm=None, region=None, initial_fields=None,
-                  use_cache=True):
+                  json=None, use_cache=True):
         """
         Return a Guild object for the specified guild.
         
         """
         if not region: region = self.region
         if not realm: realm = self.realm
-        if isinstance(realm, str):
-            realm = self.get_realm(realm)[0]
+        if isinstance(realm, wowthon.Realm):
+            realm_name = realm.slug
+        else:
+            realm_name = wowthon.WoWAPI.realm_name_to_slug(realm)
+            
         if use_cache:
-            cdata = self._cache_fetch(region, 'guild', realm.slug,
+            cdata = self._cache_fetch(region, 'guild', realm_name,
                                       name.lower())
             if cdata:
                 # print('Using cached data for guild', name, 'on', realm)
                 return cdata
         # Requested to not use cache, return new quest without updating
         # the cache.
-        data = wowthon.Guild(self, name, realm, region, initial_fields)
-        self._cache_set(data, region, 'guild', realm.slug, name.lower())
+        data = wowthon.Guild(self, name, realm, region, initial_fields,
+                             json=json)
+        self._cache_set(data, region, 'guild', realm_name, name.lower())
         return data
         
     def get_char(self, name, realm=None, region=None, initial_fields=None,
-                 use_cache=True):
+                 json=None, use_cache=True):
         """
         Get a Character object for the specified character.
         
         """
         if not region: region = self.region
         if not realm: realm = self.realm
-        if isinstance(realm, str):
-            realm = self.get_realm(realm)[0]
+        if isinstance(realm, wowthon.Realm):
+            realm_name = realm.slug
+        else:
+            realm_name = wowthon.WoWAPI.realm_name_to_slug(realm)
+            
         if use_cache:
-            cdata = self._cache_fetch(region, 'char', realm.slug,
+            cdata = self._cache_fetch(region, 'char', realm_name,
                                       name.lower())
             if cdata:
-                # print('Using cached data for character', name, 'on' realm)
+                #print('Using cached data for character', name, 'on', realm)
                 return cdata
         # Requested to not use cache, return new quest without updating
         # the cache.
-        data = wowthon.Character(self, name, realm, region, initial_fields)
-        self._cache_set(data, region, 'char', realm.slug, name.lower())
+        data = wowthon.Character(self, name, realm, region, initial_fields,
+                                 json=json)
+        self._cache_set(data, region, 'char', realm_name, name.lower())
         return data
         
     def get_achieve(self, id, region=None, locale=None, use_cache=True):
