@@ -213,9 +213,10 @@ class ArenaTeam(wowthon._FetchMixin):
         ret = []
         for player in data:
             member = {
-                'character' : wowthon.Character(self._api,
-                                                player['character']['name'],
-                                                json=player),
+                'character' : self._api.get_char(
+                                   player['character']['name'],
+                                   json=player
+                              ),
                 'rank' : player['rank'],
                 'games_played' : player['gamesPlayed'],
                 'games_won' : player['gamesWon'],
