@@ -1,13 +1,6 @@
-﻿- Caching objects
-  - Probably best to do this in api.get_X
-  - Cache likely needs to be checked in parameters
-  - Use a dict like:   
-      cache = {'eu' : {'realms' : {'draenor' : {'realm' : Realm(), 'chars' : {'Untamesbush' : Character(), 'Kegger' : Character()},}}
-  - Sometimes data is regenerated for every call (when custom dicts are made), not perfect
+﻿- Sometimes data is regenerated for every call (when custom dicts are made), not perfect
   
 - Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
-
-- Consider using dict.get instead of try: except KeyError
 
 - May need to clone a lot of structures for immutability if necessary
 
