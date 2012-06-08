@@ -187,10 +187,9 @@ class Character(wowthon._FetchMixin):
         
         """
         realmname = self._json_property('realm')
-        return wowthon.Realm(self._api, 
-                             wowthon.WoWAPI.realm_name_to_slug(realmname),
-                             self.region
-                            )
+        slug = wowthon.WoWAPI.realm_name_to_slug(realmname)
+        return self._api.get_realm(slug, region=self.region)[0]
+        
     @property   
     def titles(self):
         """
@@ -257,14 +256,13 @@ class Character(wowthon._FetchMixin):
         # TODO Return None for unguilded players.
         self._add_field('guild')
         guild = self._json_property('guild')
-        return wowthon.Guild(
-                             self._api,
-                             guild['name'],
-                             self.realm.slug,
-                             self.region,
-                             initial_fields=None,
-                             json=guild
-                            )
+        return self._api.get_guild(
+            guild['name'],
+            self.realm.slug,
+            self.region,
+            initial_fields=None,
+            json=guild
+        )
                             
     @property
     def stats(self):
@@ -413,7 +411,7 @@ class Character(wowthon._FetchMixin):
         quests = self._json_property('quests')
         ret = []
         for quest in quests:
-            ret.append(wowthon.Quest(self._api, quest))
+            ret.append(self._api.get_quest(quest))
         return ret
         
     @property
