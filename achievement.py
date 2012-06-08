@@ -85,7 +85,7 @@ class Achievement(wowthon._FetchMixin):
             return None
         ret = []
         for reward in rewards:
-            ret.append(wowthon.Item(self._api, reward['id']))
+            ret.append(self._api.get_item(reward['id']))
         return ret
         
     @property
