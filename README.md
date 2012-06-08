@@ -78,7 +78,7 @@ API's [usage policy][usage].
 ## Future ##
 The following is a list of tasks still to be done, or considered:
 
-- More comprehensive testing (many unit tests lost :( )
+- More comprehensive testing
 - 'Last modified' checking(!)
 - Exceptions and error code handling
 - Authentication
@@ -106,7 +106,7 @@ The following is a list of features not yet implemented:
 
 - Items:
     - Source lookup
-    - Mutability (regorge(), socket())?
+    - Mutability (reforge(), socket())?
     - Possibly missed some some item fields?
 
 - Guild:
