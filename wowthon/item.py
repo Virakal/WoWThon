@@ -44,7 +44,8 @@ class Item(wowthon._FetchMixin):
         self._json = json
         self._region = region
         self._locale = locale
-        self._url = wowthon.REGION[region]['prefix'] + self._PATH + str(id)
+        self._url = wowthon.REGION[region]['prefix'] + self._PATH + \
+                    str(id) + '?locale=' + locale
         
     @property
     def id(self):
