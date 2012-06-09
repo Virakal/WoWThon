@@ -126,7 +126,6 @@ The following is a list of features not yet implemented:
     - Progression
 
 - Data (List all):
-    - Battlegroups
     - Classes (*currently hardcoded*)
     - Races (*currently hardcoded*)
     - Achievements
