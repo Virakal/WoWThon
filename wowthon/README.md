@@ -93,7 +93,6 @@ The following is a list of tasks still to be done, or considered:
 - Wowhead integration for data not exposed by Blizzard (particularly spells)
 - Add more examples
 - Method of installing
-- Make it so that the package actually contains a `wowthon` folder.
 
 ## Not Yet Implemented ##
 The following is a list of features not yet implemented:
