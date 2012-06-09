@@ -418,6 +418,7 @@ class WoWAPI(wowthon._FetchMixin):
         """
         if not region: region = self.region
         if not locale: locale = self.locale
+        
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'item', id)
             if cdata:
@@ -466,7 +467,6 @@ class WoWAPI(wowthon._FetchMixin):
         name.
         
         """
-        # TODO Implement locale
         if not region: region = self.region
         if not locale: locale = self.locale
         
@@ -476,7 +476,8 @@ class WoWAPI(wowthon._FetchMixin):
                 return cdata
         
         # Data not cached or cache not being used
-        url = wowthon.REGION[region]['prefix'] + 'data/item/classes'
+        url = wowthon.REGION[region]['prefix'] + 'data/item/classes' + \
+              '?locale=' + locale
         data = self._get_json(url)
         
         ret = {}
@@ -529,7 +530,8 @@ class WoWAPI(wowthon._FetchMixin):
             cdata = self._cache_fetch(region, locale, 'classes')
             if cdata: return cdata
             
-        url = wowthon.REGION[region]['prefix'] + 'data/character/classes'
+        url = wowthon.REGION[region]['prefix'] + 'data/character/classes' + \
+              '?locale=' + locale
         data = self._get_json(url)['classes']
         
         ret = []
@@ -560,7 +562,8 @@ class WoWAPI(wowthon._FetchMixin):
             cdata = self._cache_fetch(region, locale, 'races')
             if cdata: return cdata
             
-        url = wowthon.REGION[region]['prefix'] + 'data/character/races'
+        url = wowthon.REGION[region]['prefix'] + 'data/character/races' + \
+              '?locale=' + locale
         data = self._get_json(url)['races']
         
         if use_cache:
