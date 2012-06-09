@@ -125,8 +125,6 @@ The following is a list of features not yet implemented:
     - Progression
 
 - Data (List all):
-    - Classes (*currently hardcoded*)
-    - Races (*currently hardcoded*)
     - Achievements
     - Guild Achievements
     - Guild Perks
