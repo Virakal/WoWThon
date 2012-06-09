@@ -133,7 +133,6 @@ The following is a list of features not yet implemented:
     - Guild Achievements
     - Guild Perks
     - Guild Rewards
-    - Item Classes
     - Recipes (Add to character professions too)
     
 ## Copyright and License ##
