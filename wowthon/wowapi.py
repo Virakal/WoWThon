@@ -546,3 +546,23 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(ret, region, locale, 'classes')
         return ret
+        
+    def get_races(self, region=None, locale=None, use_cache=True):
+        """
+        Return a list of dictionaries providing information on character
+        races.
+        
+        """
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'races')
+            if cdata: return cdata
+            
+        url = wowthon.REGION[region]['prefix'] + 'data/character/races'
+        data = self._get_json(url)['races']
+        
+        if use_cache:
+            self._cache_set(data, region, locale, 'races')
+        return data
