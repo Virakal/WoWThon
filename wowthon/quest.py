@@ -23,13 +23,14 @@ class Quest(wowthon._FetchMixin):
                 (default: None)
         
         """
-        # TODO Implement locale
         if not region: region = api.region
         if not locale: locale = api.locale
+        
         self._api = api
         self._id = id
         self._json = json
-        self._url = wowthon.REGION[region]['prefix'] + self._PATH + str(id)
+        self._url = wowthon.REGION[region]['prefix'] + self._PATH + \
+                    str(id) + '?locale=' + locale
         
     @property
     def id(self):
