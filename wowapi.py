@@ -75,6 +75,11 @@ class WoWAPI(wowthon._FetchMixin):
                             
         self._cache = {}
         
+    #
+    # Static methods
+    #
+    
+        
     @staticmethod
     def _locale_case(s):
         """
@@ -206,6 +211,46 @@ class WoWAPI(wowthon._FetchMixin):
                 # Chop off the leading +
                 ret = ret[1:]
         return ret
+        
+    #
+    # Private helper methods
+    #
+    
+    def _cache_set(self, obj, *args):
+        """
+        Caches the object `obj` at path `args`.
+        
+        """
+        self._cache_set_helper(self._cache, obj, args)
+        
+    def _cache_set_helper(self, d, obj, path):
+        # TODO Add last_modified here?
+        # Recursively create cache structure
+        if len(path) > 1:
+            if not d.get(path[0]):
+                d.update({path[0] : {}})
+            # Add the first element of the path
+            self._cache_set_helper(d[path[0]], obj, path[1:])
+        else:
+            # and set the final item in the path to obj
+            d.update({path[0] : obj})
+            
+    def _cache_fetch(self, *args):
+        """
+        Returns an object from the cache.
+        
+        Returns None if the object is not cached.
+        
+        """
+        c = self._cache
+        for field in args:
+            data = c.get(field)
+            if not data:
+                # Field not found, object is not cached
+                return None
+            # Otherwise, move to the next field
+            c = data
+        return c
     
     def _get_json(self, url):
         """Make a dictionary from the JSON file at `url`"""
@@ -232,20 +277,9 @@ class WoWAPI(wowthon._FetchMixin):
             locale = self.locale
         return prefix + 'locale=' + locale
     
-    def list_all_realm_names(self, region=None):
-        """
-        List the slug of every realm in the specified region.
-        
-        If no region is specified, the current API's region is used.
-        
-        """
-        if not region: region = self.region
-        url = wowthon.REGION[region]['prefix'] + 'realm/status'
-        json = self._get_json(url)
-        ret = []
-        for realm in json['realms']:
-            ret.append(realm['slug'])
-        return ret
+    #
+    # Item getters
+    #
         
     def get_realm(self, *realms, **kwargs):
         """
@@ -264,7 +298,8 @@ class WoWAPI(wowthon._FetchMixin):
         locale -- The locale to return (default current locale)
         
         """
-        # TODO Is a list really useful?
+        # TODO Change this to a single realm.
+        # TODO Cache realms
         # TODO Does locale matter?
         
         if not realms: realms = [self.realm]
@@ -282,6 +317,7 @@ class WoWAPI(wowthon._FetchMixin):
         for realm in realms:
             ret.append(wowthon.Realm(self, realm, region, locale))
         return ret
+        
         
     def get_guild(self, name, realm=None, region=None, initial_fields=None,
                   json=None, use_cache=True):
@@ -306,7 +342,8 @@ class WoWAPI(wowthon._FetchMixin):
         # the cache.
         data = wowthon.Guild(self, name, realm, region, initial_fields,
                              json=json)
-        self._cache_set(data, region, 'guild', realm_name, name.lower())
+        if use_cache:
+            self._cache_set(data, region, 'guild', realm_name, name.lower())
         return data
         
     def get_char(self, name, realm=None, region=None, initial_fields=None,
@@ -332,7 +369,8 @@ class WoWAPI(wowthon._FetchMixin):
         # the cache.
         data = wowthon.Character(self, name, realm, region, initial_fields,
                                  json=json)
-        self._cache_set(data, region, 'char', realm_name, name.lower())
+        if use_cache:
+            self._cache_set(data, region, 'char', realm_name, name.lower())
         return data
         
     def get_achieve(self, id, region=None, locale=None, use_cache=True):
@@ -350,7 +388,8 @@ class WoWAPI(wowthon._FetchMixin):
         # Requested to not use cache, return new quest without updating
         # the cache.
         data = wowthon.Achievement(self, id, region=region, locale=locale)
-        self._cache_set(data, region, locale, 'ach', id)
+        if use_cache:
+            self._cache_set(data, region, locale, 'ach', id)
         return data
         
     def get_quest(self, id, region=None, locale=None, use_cache=True):
@@ -368,7 +407,8 @@ class WoWAPI(wowthon._FetchMixin):
         # Requested to not use cache, return new quest without updating
         # the cache.
         data = wowthon.Quest(self, id, region=region, locale=locale)
-        self._cache_set(data, region, locale, 'quest', id)
+        if use_cache:
+            self._cache_set(data, region, locale, 'quest', id)
         return data
         
     def get_item(self, id, region=None, locale=None, use_cache=True):
@@ -386,7 +426,8 @@ class WoWAPI(wowthon._FetchMixin):
         # Requested to not use cache, return new item without updating
         # the cache.
         data = wowthon.Item(self, id, region=region, locale=locale)
-        self._cache_set(data, region, locale, 'item', id)
+        if use_cache:
+            self._cache_set(data, region, locale, 'item', id)
         return data
         
     def get_arena_team(self, size, name, realm=None, region=None,
@@ -398,38 +439,49 @@ class WoWAPI(wowthon._FetchMixin):
         return wowthon.ArenaTeam(self, size, name, realm=realm, region=region,
                                  locale=locale)
                                  
-    def _cache_fetch(self, *args):
+    #
+    # Data API methods
+    #
+    
+    def list_all_realm_names(self, region=None):
         """
-        Returns an object from the cache.
+        List the slug of every realm in the specified region.
         
-        Returns None if the object is not cached.
-        
-        """
-        c = self._cache
-        for field in args:
-            data = c.get(field)
-            if not data:
-                # Field not found, object is not cached
-                return None
-            # Otherwise, move to the next field
-            c = data
-        return c
-        
-    def _cache_set(self, obj, *args):
-        """
-        Caches the object `obj` at path `args`.
+        If no region is specified, the current API's region is used.
         
         """
-        self._cache_set_helper(self._cache, obj, args)
+        # TODO Cache this
+        if not region: region = self.region
         
-    def _cache_set_helper(self, d, obj, path):
-        # TODO Add last_modified here?
-        # Recursively create cache structure
-        if len(path) > 1:
-            if not d.get(path[0]):
-                d.update({path[0] : {}})
-            # Add the first element of the path
-            self._cache_set_helper(d[path[0]], obj, path[1:])
-        else:
-            # and set the final item in the path to obj
-            d.update({path[0] : obj})
+        url = wowthon.REGION[region]['prefix'] + 'realm/status'
+        json = self._get_json(url)
+        ret = []
+        for realm in json['realms']:
+            ret.append(realm['slug'])
+        return ret
+    
+    def get_item_classes(self, region=None, locale=None, use_cache=True):
+        """
+        Return a dictionary mapping an item class id to their localised
+        name.
+        
+        """
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'item_class')
+            if cdata:
+                return cdata
+        
+        # Data not cached or cache not being used
+        url = wowthon.REGION[region]['prefix'] + 'data/item/classes'
+        data = self._get_json(url)
+        
+        ret = {}
+        for ic in data['classes']:
+            ret.update({ic['class'] : ic['name']})
+        
+        if use_cache:
+            self._cache_set(ret, region, locale, 'item_class')
+        return ret
