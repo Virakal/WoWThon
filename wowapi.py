@@ -466,6 +466,7 @@ class WoWAPI(wowthon._FetchMixin):
         name.
         
         """
+        # TODO Implement locale
         if not region: region = self.region
         if not locale: locale = self.locale
         
@@ -485,3 +486,27 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(ret, region, locale, 'item_class')
         return ret
+        
+    def get_battlegroups(self, region=None, use_cache=True):
+        """
+        Returns a list of dictionaries containing battlegroup information.
+        
+        The dictionaries have the following fields:
+        name -- the display name of the battlegroup
+        slug -- the slug used to internally represent the battlegroup
+        
+        """
+        if not region: region = self.region
+        
+        if use_cache:
+            cdata = self._cache_fetch(region, 'battlegroups')
+            if cdata:
+                return cdata
+                
+        # Data not cached or cache not being used
+        url = wowthon.REGION[region]['prefix'] + 'data/battlegroups/'
+        data = self._get_json(url)['battlegroups']
+        
+        if use_cache:
+            self._cache_set(data, region, 'battlegroups')
+        return data
