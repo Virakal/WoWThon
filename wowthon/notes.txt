@@ -1,0 +1,17 @@
+﻿- Cache using dbm when last_modified checking is done? (No noticable speed boost on auctions with dbm.dumb)
+
+- Sometimes data is regenerated for every call (when custom dicts are made), not perfect
+  
+- Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
+
+- May need to clone a lot of structures for immutability if necessary
+
+- Character.can_use_item() would be cool!
+
+- Wowhead &power exposes data well (e.g. http://www.wowhead.com/spell=580&power)
+
+- Sphinx or similar for docs would be nice
+
+- Rating conversion calculators?
+
+- MutableItem(wowthon.Item) could be a good idea. Items can be cached then.
