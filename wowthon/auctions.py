@@ -87,8 +87,6 @@ class Auction:
         Uses the API's default realm and region if none are specified.
         
         """
-        # TODO Test
-        # TODO Implement item
         if not realm:
             realm = api.realm
         if not region:
