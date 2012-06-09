@@ -510,3 +510,39 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(data, region, 'battlegroups')
         return data
+        
+    def get_classes(self, region=None, locale=None, use_cache=True):
+        """
+        Return a list of dictionaries describing classes in the game.
+        
+        The dictionaries have the following fields:
+        id -- the class id
+        mask -- the class's bitmask
+        power_type -- the resource the class uses
+        name -- the localised name of the class
+        
+        """
+        if not region: region = self.region
+        if not locale: locale = self.locale
+        
+        if use_cache:
+            cdata = self._cache_fetch(region, locale, 'classes')
+            if cdata: return cdata
+            
+        url = wowthon.REGION[region]['prefix'] + 'data/character/classes'
+        data = self._get_json(url)['classes']
+        
+        ret = []
+        
+        for cls in data:
+            pycls = {
+                'id' : cls['id'],
+                'mask' : cls['mask'],
+                'power_type' : cls['powerType'],
+                'name' : cls['name'],
+            }
+            ret.append(pycls)
+        
+        if use_cache:
+            self._cache_set(ret, region, locale, 'classes')
+        return ret
