@@ -25,7 +25,6 @@ class Realm(wowthon._FetchMixin):
         locale -- the locale to use for data
         
         """
-        # TODO Auction data :)
         if not region: region = api.region
         if not locale: locale = api.locale
         if not name: name = api.realm
