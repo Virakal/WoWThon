@@ -97,16 +97,12 @@ The following is a list of tasks still to be done, or considered:
 ## Not Yet Implemented ##
 The following is a list of features not yet implemented:
 
-- API:
-    - Localisation
-
 - Items:
     - Source lookup
     - Mutability (reforge(), socket())?
     - Possibly missed some some item fields?
 
 - Guild:
-    - Locale
     - *The following are currently exposed as raw dictionaries*:
         - Guild achievements
         - Guild perks
