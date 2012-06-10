@@ -42,8 +42,6 @@ del exceptions
 #: A list of valid regions.
 REGIONS = ['eu', 'us', 'kr', 'tw', 'cn']
 
-# TODO Consider dropping 'api/wow/' from prefixes, make functions in
-#      WoWAPI that returns these values and add it there
 #: A map of regions with their Battle.net prefixes and valid regions
 REGION = {
     'eu' : {
@@ -166,7 +164,7 @@ FACTION_LEVELS = {
     4 : 'friendly',
     5 : 'honored',
     6 : 'revered',
-    7 : 'exalted',
+    7 : 'exalted'
 }
 
 # Thanks to Ulminia for this
@@ -282,5 +280,5 @@ REFORGES = {
     165 : (49, 31),
     166 : (49, 32),
     167 : (49, 36),
-    168 : (49, 37),
+    168 : (49, 37)
 }
