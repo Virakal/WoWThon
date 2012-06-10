@@ -259,9 +259,12 @@ class WoWAPI(wowthon._FetchMixin):
         return c
     
     def _get_json(self, url):
-        """Make a dictionary from the JSON file at `url`"""
-        # TODO Error checking, from urllib and external
-        # TODO Implement API keys here
+        """
+        Make a dictionary from the JSON file at `url`.
+        
+        Throws APIError if a call returns an error.
+        
+        """
         cur_time = time.strftime(self._TIME_FORMAT, time.gmtime())
         headers = {
             'Date' : cur_time,
@@ -275,9 +278,20 @@ class WoWAPI(wowthon._FetchMixin):
                                              self.public_key)
             
             headers.update({'Authorization' : auth_str})
-        # req = urllib.request.urlopen(url)
+        
         requester = urllib.request.Request(url, headers=headers)
-        req = urllib.request.urlopen(requester)
+        try:
+            req = urllib.request.urlopen(requester)
+        except urllib.error.HTTPError as e:
+            code = e.getcode()
+            if code not in [404, 500]:
+                # We can only handle 404 and 500 errors
+                raise
+            else:
+                error_data = str(e.read(), 'UTF-8')
+                error_json = jsonlib.loads(error_data)
+                raise wowthon.APIError(code, error_json)
+            
         return jsonlib.loads(str(req.read(), 'UTF-8'))
         
     def _get_locale_suffix(self, prefix='?', locale=None):
