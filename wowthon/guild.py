@@ -17,7 +17,7 @@ class Guild(wowthon._FetchMixin):
     _PATH = 'guild/'
     
     def __init__(self, api, name, realm=None, region=None,
-                 initial_fields=None, locale=None, json=None):
+                 initial_fields=None, json=None):
         """
         Creates a new Guild.
         
@@ -37,7 +37,6 @@ class Guild(wowthon._FetchMixin):
         realm -- the realm the guild resides on (default to api settings)
         region -- the region of the realm (default to api settings)
         initial_fields -- fields to request early
-        locale -- the locale to use for the returned data
         json -- set this to construct the guild from previously fetched json
         
         """
@@ -51,7 +50,7 @@ class Guild(wowthon._FetchMixin):
         
         self._fields = initial_fields
         self._region = region
-        self._realm = realm
+        self._realm = realm     
         self._name = name
         self._api = api
         
@@ -67,7 +66,6 @@ class Guild(wowthon._FetchMixin):
         
         """
         # TODO Ensure fields are valid
-        # TODO Implement locale
         fields = ''
         if self._fields and with_fields:
             fields = '?fields='
