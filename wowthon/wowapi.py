@@ -2,6 +2,10 @@
 import urllib.request
 from urllib.error import HTTPError #, URLError # Need URLError?
 import json as jsonlib
+import time
+import base64
+import hashlib
+import hmac
 
 # Package Imports
 import wowthon
@@ -30,6 +34,8 @@ class WoWAPI(wowthon._FetchMixin):
         'azjol-nerub' : 'azjolnerub',
         'arak-arahm'  : 'arakarahm'
     }
+    
+    _TIME_FORMAT = "%a, %d %b %Y %H:%M:%S GMT"
     
     def __init__(self, realm, region='us', locale='',
                  private_key='', public_key=''):
@@ -256,7 +262,22 @@ class WoWAPI(wowthon._FetchMixin):
         """Make a dictionary from the JSON file at `url`"""
         # TODO Error checking, from urllib and external
         # TODO Implement API keys here
-        req = urllib.request.urlopen(url)
+        cur_time = time.strftime(self._TIME_FORMAT, time.gmtime())
+        headers = {
+            'Date' : cur_time,
+        }
+        
+        if self.private_key and self.public_key:
+            # Auth keys set, add auth header
+            auth_str = self._gen_auth_string(url,
+                                             cur_time,
+                                             self.private_key,
+                                             self.public_key)
+            
+            headers.update({'Authorization' : auth_str})
+        # req = urllib.request.urlopen(url)
+        requester = urllib.request.Request(url, headers=headers)
+        req = urllib.request.urlopen(requester)
         return jsonlib.loads(str(req.read(), 'UTF-8'))
         
     def _get_locale_suffix(self, prefix='?', locale=None):
@@ -276,6 +297,25 @@ class WoWAPI(wowthon._FetchMixin):
         elif not locale:
             locale = self.locale
         return prefix + 'locale=' + locale
+        
+    def _gen_auth_string(self, url, timestamp, public_key, private_key,
+                         http_verb='GET'):
+        url_path = urllib.request.urlparse(url).path
+        
+        str_to_sign = http_verb + "\n" + \
+                      time.strftime(self._TIME_FORMAT, timestamp) + "\n" + \
+                      url_path + "\n"
+                      
+        str_to_sign = bytes(str_to_sign, 'utf-8')
+        bytes_priv_key = bytes(private_key, 'utf-8')
+                      
+        signature = hmac.HMAC(bytes_priv_key,
+                              str_to_sign,
+                              hashlib.sha1).digest()
+        signature = base64.b64encode(signature)
+        signature = str(signature, 'utf-8')
+        
+        return 'BNET ' + public_key + ':' + signature
     
     #
     # Item getters
