@@ -400,13 +400,14 @@ class WoWAPI(wowthon._FetchMixin):
             self._cache_set(data, region, 'guild', realm_name, name.lower())
         return data
         
-    def get_char(self, name, realm=None, region=None, initial_fields=None,
-                 json=None, use_cache=True):
+    def get_char(self, name, realm=None, region=None, locale=None,
+                 initial_fields=None, json=None, use_cache=True):
         """
         Get a Character object for the specified character.
         
         """
         if not region: region = self.region
+        if not locale: locale = self.locale
         if not realm: realm = self.realm
         if isinstance(realm, wowthon.Realm):
             realm_name = realm.slug
@@ -414,17 +415,18 @@ class WoWAPI(wowthon._FetchMixin):
             realm_name = wowthon.WoWAPI.realm_name_to_slug(realm)
             
         if use_cache:
-            cdata = self._cache_fetch(region, 'char', realm_name,
+            cdata = self._cache_fetch(region, locale, 'char', realm_name,
                                       name.lower())
             if cdata:
                 #print('Using cached data for character', name, 'on', realm)
                 return cdata
         # Requested to not use cache, return new quest without updating
         # the cache.
-        data = wowthon.Character(self, name, realm, region, initial_fields,
-                                 json=json)
+        data = wowthon.Character(self, name, realm, region, locale,
+                                 initial_fields, json=json)
         if use_cache:
-            self._cache_set(data, region, 'char', realm_name, name.lower())
+            self._cache_set(data, region, locale, 'char', realm_name,
+                            name.lower())
         return data
         
     def get_achieve(self, id, region=None, locale=None, use_cache=True):
