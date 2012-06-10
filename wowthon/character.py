@@ -6,7 +6,6 @@ class Character(wowthon._FetchMixin):
     
     """
     # TODO Finish implementation
-    # TODO Document properties
     
     #: A list of possible fields to be passed to the API
     VALID_FIELDS = [
@@ -22,7 +21,7 @@ class Character(wowthon._FetchMixin):
         'companions',
         'mounts',
         'pets',
-        'acheivements',
+        'achievements',
         'progression',
         'pvp',
         'quests'
@@ -30,13 +29,30 @@ class Character(wowthon._FetchMixin):
     
     _PATH = 'character/'
     
-    def __init__(self, api, name, realm=None, region=None, initial_fields=None,
-                 json=None):
-        # TODO Document
+    def __init__(self, api, name, realm=None, region=None, locale=None,
+                 initial_fields=None, json=None):
+        """
+        Construct a Character object for the specified character.
+        
+        Arguments:
+        api -- the `wowthon.WoWAPI` instance to use
+        name -- the name of the character
+        
+        Optional arguments:
+        realm -- the realm the character resides on (default: api settings)
+        region -- the API region the realm is on (default: api dettings)
+        locale -- the locale to use (default: api settings)
+        initial_fields -- a list of fields to fetch with the initial data
+                          download (default: None)
+        json -- a dictionary to use in place of downloading from the server
+                (default: None)
+        
+        """
         if not realm: realm = api.realm
         if not region: region = api.region
+        if not locale: locale = api.locale
         if not initial_fields: initial_fields = []
-        if type(realm) == wowthon.Realm:
+        if isinstance(realm, wowthon.Realm):
             realm = realm.slug
         realm = api.realm_name_to_slug(realm)
         
@@ -44,6 +60,7 @@ class Character(wowthon._FetchMixin):
         self._name = name
         self._realm = realm
         self._region = region
+        self._locale = locale
         self._fields = initial_fields
         self._json = json
         self._url = self._generate_url()
@@ -60,13 +77,14 @@ class Character(wowthon._FetchMixin):
         # TODO Ensure fields are valid
         fields = ''
         if self._fields and with_fields:
-            fields = '?fields='
+            fields = '&fields='
             for field in self._fields:
                 fields += field + ','
             assert fields[-1] == ','
             fields = fields[:-1] # chop off trailing comma
         return wowthon.REGION[self._region]['prefix'] + self._PATH + \
-               self._realm + '/' + self._name + fields
+               self._realm + '/' + self._name + '?locale=' + \
+               self._locale + fields
                
     def title_string(self, id):
         """
