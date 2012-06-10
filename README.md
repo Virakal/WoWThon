@@ -98,10 +98,7 @@ The following is a list of tasks still to be done, or considered:
 The following is a list of features not yet implemented:
 
 - API:
-    - Error code handling
-    - Exceptions
     - Localisation
-    - Authentication
 
 - Items:
     - Source lookup
@@ -109,10 +106,11 @@ The following is a list of features not yet implemented:
     - Possibly missed some some item fields?
 
 - Guild:
+    - Locale
     - *The following are currently exposed as raw dictionaries*:
-    - Guild achievements
-    - Guild perks
-    - Guild rewards
+        - Guild achievements
+        - Guild perks
+        - Guild rewards
 
 - PvP:
     - Ladders
