@@ -4,7 +4,7 @@ __version__ = '0.3.0a'
 __all__ = [
     'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
     'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement',
-    'ItemSet', 'ArenaTeam'
+    'ItemSet', 'ArenaTeam', 'APIError'
 ]
 
 #
@@ -20,6 +20,7 @@ from wowthon.item import Item, ItemSet
 from wowthon.quest import Quest
 from wowthon.achievement import Achievement
 from wowthon.pvp import ArenaTeam
+from wowthon.exceptions import APIError
 
 # Hide package structure
 del fetch
@@ -32,6 +33,7 @@ del item
 del quest
 del achievement
 del pvp
+del exceptions
 
 #
 # Global constants
@@ -282,9 +284,3 @@ REFORGES = {
     167 : (49, 36),
     168 : (49, 37),
 }
-    
-#
-# Exceptions
-#
-
-# TODO ...
