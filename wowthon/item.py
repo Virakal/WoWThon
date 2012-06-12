@@ -7,11 +7,13 @@ class Item(wowthon._FetchMixin):
     """
     _PATH = 'item/'
     
+    #: A list of valid spell triggers
     TRIGGERS = [
         'ON_USE',
         'ON_EQUIP'
     ]
     
+    #: A list of possible socket types
     SOCKET_TYPES = [
         'RED',
         'YELLOW',
@@ -19,6 +21,19 @@ class Item(wowthon._FetchMixin):
         'META',
         'PRISMATIC',
         'COGWHEEL',
+    ]
+    
+    #: A list of possible gem types
+    GEM_TYPES = [
+        'RED',
+        'YELLOW',
+        'BLUE',
+        'PURPLE',
+        'ORANGE',
+        'GREEN',
+        'META',
+        'PRISMATIC',
+        'COGWHEEL'
     ]
     
     def __init__(self, api, id, region=None, locale=None, json=None):
@@ -588,6 +603,46 @@ class Item(wowthon._FetchMixin):
             'id' : data['spellId'],
             'name' : data['name'],
             'description' : data['description']
+        }
+        
+        return ret
+        
+    @property
+    def gem_info(self):
+        """
+        Returns a dictionary of information about gem properties.
+        
+        The dictionary has the following fields:
+        bonus -- a string defining the bonus (e.g. "+60 Stamina")
+        type -- the gem type (e.g. "BLUE")
+        required_skill_id -- the id of the required profession, or 0 if no
+                             profession is required
+        required_skill_rank -- the skill level required if a skill is required
+        min_level -- the minimum character level required to use the gem
+        item_level -- the item level of the bonus(?)
+                             
+        Returns None if the item is not a gem.
+        
+        See also:
+        `Item.GEM_TYPES`
+        
+        """
+        # NOTE Is srcItemId ever useful?
+        try:
+            data = self._json_property('gemInfo')
+        except KeyError:
+            return None
+            
+        bonus = data['bonus']
+        type = data['type']
+            
+        ret = {
+            'name' : bonus['name'],
+            'type' : type['type'],
+            'required_skill_id' : bonus['requiredSkillId'],
+            'required_skill_rank' : bonus['requiredSkillRank'],
+            'min_level' : bonus['minLevel'],
+            'item_level' : bonus['itemLevel'],
         }
         
         return ret
