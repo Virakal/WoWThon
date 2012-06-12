@@ -10,7 +10,8 @@ class Item(wowthon._FetchMixin):
     #: A list of valid spell triggers
     TRIGGERS = [
         'ON_USE',
-        'ON_EQUIP'
+        'ON_EQUIP',
+        'ON_LEARN'
     ]
     
     #: A list of possible socket types
