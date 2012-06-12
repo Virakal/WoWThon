@@ -1,6 +1,6 @@
 ﻿# Imports
 import urllib.request
-from urllib.error import HTTPError #, URLError # Need URLError?
+from urllib.error import HTTPError
 import json as jsonlib
 import time
 import base64
@@ -265,20 +265,22 @@ class WoWAPI(wowthon._FetchMixin):
         Throws APIError if a call returns an error.
         
         """
+        # TODO Just use SSL all the time?
         cur_time = time.strftime(self._TIME_FORMAT, time.gmtime())
         headers = {
             'Date' : cur_time,
         }
         
         if self.private_key and self.public_key:
-            # Auth keys set, add auth header
+            # Auth keys set, add auth header and use SSL
             auth_str = self._gen_auth_string(url,
                                              cur_time,
                                              self.private_key,
                                              self.public_key)
             
             headers.update({'Authorization' : auth_str})
-        
+            url = url.replace('http://', 'https://')
+            
         requester = urllib.request.Request(url, headers=headers)
         try:
             req = urllib.request.urlopen(requester)
