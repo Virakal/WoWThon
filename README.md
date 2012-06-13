@@ -66,8 +66,15 @@ found in the class and method docstrings.
 ## Requirements ##
 WoWthon requires Python 3 and has been tested on CPython 3.2.2.
 
-The `urllib` and `json` modules are required, supplied with the standard
-Python distribution.
+The following modules are required, supplied with the standard
+Python distribution:
+
+- `urllib`
+- `json`
+- `base64`
+- `time`
+- `hashlib`
+- `hmac`
 
 Applications naturally require a functional internet connection to obtain
 data from the Blizzard servers and are also bound by the community platform
@@ -76,23 +83,17 @@ API's [usage policy][usage].
 [usage]: http://blizzard.github.com/api-wow-docs/#idp26536
 
 ## Future ##
-The following is a list of tasks still to be done, or considered:
+The following is a list of features and improvements still to be made:
 
-- More comprehensive testing
-- 'Last modified' checking(!)
-- Exceptions and error code handling
-- Authentication
-- Implement locales (find out what does and doesn't need locale)
-- Improve documentation, especially at class level, provide
-  tutorial-style guidance.
+- More effcient bandwidth and API credit usage
+- Improved documentation, especially at class level, will provide
+  tutorial-style guidance
 - Deal with characters under level 10 in some way, can appear in guild
   listings but can't be directly accessed
-- Considering moving the constants to API methods, or moving the
-  API's static methods out in to the wowthon package
 - Eventually replace most or all dicts with objects
 - Wowhead integration for data not exposed by Blizzard (particularly spells)
-- Add more examples
-- Method of installing
+- More examples
+- Method of installation (setuptools or similar)
 
 ## Not Yet Implemented ##
 The following is a list of features not yet implemented:
@@ -107,6 +108,7 @@ The following is a list of features not yet implemented:
         - Guild achievements
         - Guild perks
         - Guild rewards
+    - Guild emblem rendering
 
 - PvP:
     - Ladders
