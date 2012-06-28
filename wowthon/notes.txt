@@ -15,3 +15,10 @@
 - Rating conversion calculators?
 
 - MutableItem(wowthon.Item) could be a good idea. Items can be cached then.
+
+- Modified-Since headers?
+
+- Considering moving the constants to API methods, or moving the
+  API's static methods out in to the wowthon package
+  
+- Iterable arena ladders would rock
