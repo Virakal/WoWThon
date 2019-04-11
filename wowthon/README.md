@@ -30,7 +30,7 @@ a list of member IDs but a list of fully functional Character objects.
 ## Usage ##
 WoWthon must be in a folder called `wowthon` and must be in your Python path
 or the folder in which your client application resides in order to use the
-API. The Python path may be modified using the sys.path variable within 
+API. The Python path may be modified using the sys.path variable within
 Python.
 
 The module can then be imported using `import wowthon`.
@@ -47,19 +47,19 @@ server.
 
     # Grab my guild!
     delphae = api.get_guild('Delphae')
-    
+
     # or my druid :)
     bush = api.get_char('untamedbush')
-    
+
 and we can then treat these objects in a fairly intuitive manner.
 
     delphae.level
     > 25
-    
+
     # wowthon.CLASSES maps class ids to their English names
     wowthon.CLASSES[bush.class_]
     > 'druid'
-    
+
 A more complete documentation will be written soon. Additional help can be
 found in the class and method docstrings.
 
@@ -132,14 +132,14 @@ The following is a list of features not yet implemented:
     - Guild Perks
     - Guild Rewards
     - Recipes (Add to character professions too)
-    
+
 ## Copyright and License ##
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
 <img alt="Creative Commons License" style="border-width:0"
 src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" />
 </a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
-WoWthon</span> by <span xmlns:cc="http://creativecommons.org/ns#" 
-property="cc:attributionName">Jonathan Goodger</span> is licensed under a 
+WoWthon</span> by <span xmlns:cc="http://creativecommons.org/ns#"
+property="cc:attributionName">Jonathan Goodger</span> is licensed under a
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
 Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
 No warranty is supplied with this product.

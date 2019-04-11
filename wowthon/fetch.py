@@ -4,17 +4,17 @@ from urllib.error import HTTPError #, URLError # Need URLError?
 class _FetchMixin:
     """
     Mixin class to define common behaviour for any object that fetches data.
-    
+
     """
     def _fetch(self, force=False):
         """
         Fetch the data from the WoW server if it has not already been
         downloaded.
-        
+
         Arguments:
         force -- if true, fetches data regardless of whether the data
                  already exists.
-        
+
         """
         # TODO Use last modified to refresh
         if force or not self._json:
@@ -24,20 +24,20 @@ class _FetchMixin:
                 self._last_modified = self._json['lastModified']
             except KeyError:
                 pass
-            
+
     def force_update(self):
         """Force the data to update itself from the server."""
         self._fetch(force=True)
-        
+
     def _json_property(self, name):
         """
         Get the property from the JSON object with the name `name`.
-        
+
         Fetches the data from the server if necessary. This method will update
         the object's requested fields if necessary to retrieve the data asked
         of it. After requesting optional data, this data will be fetched with
         every subsequent update.
-        
+
         """
         try:
             # Check if object has a _fields property
@@ -45,7 +45,7 @@ class _FetchMixin:
             has_fields = True
         except AttributeError:
             has_fields = False
-            
+
         self._fetch()
         try:
             return self._json[name]
@@ -57,11 +57,11 @@ class _FetchMixin:
             else:
                 # Otherwise, we don't know what it is
                 raise
-                
+
     def _add_field(self, name):
         """
         Add a field to the list of fields fetched.
-        
+
         """
         if name not in self._fields:
             self._fields.append(name)

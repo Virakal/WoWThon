@@ -44,20 +44,20 @@ def addRealmTests():
         "\") == \"" + slug + "\", \"" + name + " produced incorrect slug, " + \
         wowthon.WoWAPI.realm_name_to_slug(name) + \
         ", should produce " + slug + "\")")
-        
+
         # Add test to ensure passing the slug through doesn't break it
         exec("RealmNameTest.testSlugPass" + str(i) + \
         " = lambda self: ass(wowthon.WoWAPI.realm_name_to_slug(\"" + slug + \
         "\") == \"" + slug + "\", \"passing slug " + slug +
         " returns incorrect result " + \
         wowthon.WoWAPI.realm_name_to_slug(slug) + "\")")
-        
+
         i += 1
-        
-class RealmNameTest(unittest.TestCase):        
+
+class RealmNameTest(unittest.TestCase):
     def testDummy(self):
         pass
-        
+
 if __name__ == '__main__':
     addRealmTests()
     unittest.main()

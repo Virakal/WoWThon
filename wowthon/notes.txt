@@ -1,7 +1,7 @@
 ﻿- Cache using dbm when last_modified checking is done? (No noticable speed boost on auctions with dbm.dumb)
 
 - Sometimes data is regenerated for every call (when custom dicts are made), not perfect
-  
+
 - Maybe only ever fetch one field at a time? Once I have titles, can I drop them and use dict.update()?
 
 - May need to clone a lot of structures for immutability if necessary
@@ -20,5 +20,5 @@
 
 - Considering moving the constants to API methods, or moving the
   API's static methods out in to the wowthon package
-  
+
 - Iterable arena ladders would rock

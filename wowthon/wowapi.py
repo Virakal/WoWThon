@@ -13,10 +13,10 @@ import wowthon
 class WoWAPI(wowthon._FetchMixin):
     """
     Encapsulates an API connection for a given realm.
-    
+
     """
     # TODO Maybe move static methods out
-    
+
     # A dictionary for translating realm names to slugs
     _SLUG_TRANSLATION_DICTIONARY = {
         ord(' ')  : '-',
@@ -27,42 +27,42 @@ class WoWAPI(wowthon._FetchMixin):
         ord('ü')  : 'u',
         ord('ê')  : 'e'
     }
-    
+
     # NOTE This is needed to make the function idempotent,
     #      which makes it far more useful
     _SLUG_TRANSLATION_SPECIAL_CASES = {
         'azjol-nerub' : 'azjolnerub',
         'arak-arahm'  : 'arakarahm'
     }
-    
+
     _TIME_FORMAT = "%a, %d %b %Y %H:%M:%S GMT"
-    
+
     def __init__(self, realm, region='us', locale='',
                  private_key='', public_key=''):
         """
         Construct a new WoWAPI for the specified realm.
-        
+
         The region for the API is set using the `region` argument.
-        
-        
+
+
         Arguments:
         realm -- the WoW realm on which the API will operate
-        
+
         Keyword Arguments:
         region -- the server region (default 'us')
         locale -- the locale to use (default '')
         private_key -- your private API key (default '')
         public_key -- your public API key (default '')
-        
+
         Throws:
         ValueError -- if the locale is not valid for the region
-        
+
         """
         # TODO Implement public and private key
         if isinstance(realm, wowthon.Realm):
             realm = realm.slug
         realm = self.realm_name_to_slug(realm)
-        
+
         self.region = region.lower()
         self.realm = realm
         self.private_key = private_key
@@ -78,46 +78,46 @@ class WoWAPI(wowthon._FetchMixin):
         else:
             raise ValueError('Illegal locale "' + locale +
                             '" passed for region "' + self.region + '".')
-                            
+
         self._cache = {}
-        
+
     #
     # Static methods
     #
-    
-        
+
+
     @staticmethod
     def _locale_case(s):
         """
         Convert the passed locale string to normal locale case.
-        
+
         e.g.
         "en_gb" becomes:
             "en_GB"
-            
+
         "EN_US" becomes:
             "en_US"
-        
+
         """
         if not s: return ''
         lang, dialect = tuple(s.split('_'))
         return lang.lower() + '_' + dialect.upper()
-        
+
     @staticmethod
-    def to_money_string(cash): 
+    def to_money_string(cash):
         """
         Convert an integer to WoW money.
 
         e.g.
         128773 becomes:
             12g 87s 73c
-            
+
         17 becomes:
             17c
-            
+
         1200 becomes:
             12s 0c
-            
+
         """
         # Record negativity
         neg = (cash < 0)
@@ -132,11 +132,11 @@ class WoWAPI(wowthon._FetchMixin):
         i = i // 100
         if i > 0:
             ret = str(i) + 'g ' + ret
-            
+
         # Prepend '-' if negative
         if neg: ret = '-' + ret
         return ret.strip()
-    
+
     @staticmethod
     def strip_zero_denominations(money_string):
         """
@@ -150,7 +150,7 @@ class WoWAPI(wowthon._FetchMixin):
             "6000g 10s"
 
         "6000g 0s 12c" is not changed.
-        
+
         """
         if len(money_string) > 3:
             if money_string[-3:] == ' 0c':
@@ -158,56 +158,56 @@ class WoWAPI(wowthon._FetchMixin):
             if money_string[-3:] == ' 0s':
                 money_string = money_string[:-3]
         return money_string
-    
+
     @staticmethod
     def realm_name_to_slug(name):
         """
         Transform a realm name in to a slug name.
-        
+
         e.g.
         "Draenor" becomes:
             "dreanor"
-            
+
         "Aggra (Português)" becomes:
             "aggra-portugues"
-        
+
         Note: `test_all_realm_to_slug_names.py` tests this for all realms
               in all regions.
-        
+
         """
         # All slugs are lowercase
         ret = name.lower()
-        
+
         # Slug rules strip dashes, but I don't want to automatically
         if ret in WoWAPI._SLUG_TRANSLATION_SPECIAL_CASES:
             return WoWAPI._SLUG_TRANSLATION_SPECIAL_CASES[ret]
-        
+
         ret = ret.translate(WoWAPI._SLUG_TRANSLATION_DICTIONARY)
         return ret
-       
-    @staticmethod   
+
+    @staticmethod
     def side_for_race(id):
         """
         Return the side id for a given race id.
-        
+
         """
         # TODO Consider using data API for this
         ally = [11,1,7,3,4,22]
         horde = [5,8,2,10,6,9]
-        
+
         if id in ally: return 0
         if id in horde: return 1
-        
+
     @staticmethod
     def stat_string(id, amount):
         """
         Takes a stat id and amount and produces an English string representing
         the way that it would appear in the tooltip.
-        
+
         For example:
             stat_string(7,130) returns:
             '+130 stamina'
-        
+
         """
         name = wowthon.STAT_NAMES[id]
         ret = name.format(amount=amount)
@@ -217,18 +217,18 @@ class WoWAPI(wowthon._FetchMixin):
                 # Chop off the leading +
                 ret = ret[1:]
         return ret
-        
+
     #
     # Private helper methods
     #
-    
+
     def _cache_set(self, obj, *args):
         """
         Caches the object `obj` at path `args`.
-        
+
         """
         self._cache_set_helper(self._cache, obj, args)
-        
+
     def _cache_set_helper(self, d, obj, path):
         # TODO Add last_modified here?
         # Recursively create cache structure
@@ -240,13 +240,13 @@ class WoWAPI(wowthon._FetchMixin):
         else:
             # and set the final item in the path to obj
             d.update({path[0] : obj})
-            
+
     def _cache_fetch(self, *args):
         """
         Returns an object from the cache.
-        
+
         Returns None if the object is not cached.
-        
+
         """
         c = self._cache
         for field in args:
@@ -257,30 +257,30 @@ class WoWAPI(wowthon._FetchMixin):
             # Otherwise, move to the next field
             c = data
         return c
-    
+
     def _get_json(self, url):
         """
         Make a dictionary from the JSON file at `url`.
-        
+
         Throws APIError if a call returns an error.
-        
+
         """
         # TODO Just use SSL all the time?
         cur_time = time.strftime(self._TIME_FORMAT, time.gmtime())
         headers = {
             'Date' : cur_time,
         }
-        
+
         if self.private_key and self.public_key:
             # Auth keys set, add auth header and use SSL
             auth_str = self._gen_auth_string(url,
                                              cur_time,
                                              self.private_key,
                                              self.public_key)
-            
+
             headers.update({'Authorization' : auth_str})
             url = url.replace('http://', 'https://')
-            
+
         requester = urllib.request.Request(url, headers=headers)
         try:
             req = urllib.request.urlopen(requester)
@@ -293,18 +293,18 @@ class WoWAPI(wowthon._FetchMixin):
                 error_data = str(e.read(), 'UTF-8')
                 error_json = jsonlib.loads(error_data)
                 raise wowthon.APIError(code, error_json)
-            
+
         return jsonlib.loads(str(req.read(), 'UTF-8'))
-        
+
     def _get_locale_suffix(self, prefix='?', locale=None):
         """
         Return a URL suffix for the specified locale.
         If no locale is specified, the current API's locale is used.
-        
+
         Arguments:
         prefix -- The characters to use before the locale string (default '?')
         locale -- The locale to use (default None)
-        
+
         """
         # Don't return a string if there is no locale
         if not self.locale: return prefix
@@ -313,73 +313,73 @@ class WoWAPI(wowthon._FetchMixin):
         elif not locale:
             locale = self.locale
         return prefix + 'locale=' + locale
-        
+
     def _gen_auth_string(self, url, timestamp, public_key, private_key,
                          http_verb='GET'):
         url_path = urllib.request.urlparse(url).path
-        
+
         str_to_sign = http_verb + "\n" + \
                       time.strftime(self._TIME_FORMAT, timestamp) + "\n" + \
                       url_path + "\n"
-                      
+
         str_to_sign = bytes(str_to_sign, 'utf-8')
         bytes_priv_key = bytes(private_key, 'utf-8')
-                      
+
         signature = hmac.HMAC(bytes_priv_key,
                               str_to_sign,
                               hashlib.sha1).digest()
         signature = base64.b64encode(signature)
         signature = str(signature, 'utf-8')
-        
+
         return 'BNET ' + public_key + ':' + signature
-    
+
     #
     # Item getters
     #
-        
+
     def get_realm(self, *realms, **kwargs):
         """
         Get a realm object.
-        
+
         Returns a list of Realm objects, in order of specification.
-        
+
         If no realm or region are specified the API's current settings
         are used.
-        
+
         Arguments:
         realms -- A list of realms to check (default current realm)
-        
+
         Keyword Arguments:
         region -- The API region to use (default current region)
         locale -- The locale to return (default current locale)
-        
+
         """
         # TODO Change this to a single realm.
         # TODO Cache realms
         # TODO Does locale matter?
-        
+
         if not realms: realms = [self.realm]
         try:
             region = kwargs['region']
         except KeyError:
             region = self.region
-        
+
         try:
             locale = kwargs['locale']
         except KeyError:
             locale = self.locale
-        
+
         ret = []
         for realm in realms:
             ret.append(wowthon.Realm(self, realm, region, locale))
         return ret
-        
-        
+
+
     def get_guild(self, name, realm=None, region=None, initial_fields=None,
                   json=None, use_cache=True):
         """
         Return a Guild object for the specified guild.
-        
+
         """
         if not region: region = self.region
         if not realm: realm = self.realm
@@ -387,7 +387,7 @@ class WoWAPI(wowthon._FetchMixin):
             realm_name = realm.slug
         else:
             realm_name = wowthon.WoWAPI.realm_name_to_slug(realm)
-            
+
         if use_cache:
             cdata = self._cache_fetch(region, 'guild', realm_name,
                                       name.lower())
@@ -401,12 +401,12 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(data, region, 'guild', realm_name, name.lower())
         return data
-        
+
     def get_char(self, name, realm=None, region=None, locale=None,
                  initial_fields=None, json=None, use_cache=True):
         """
         Get a Character object for the specified character.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
@@ -415,7 +415,7 @@ class WoWAPI(wowthon._FetchMixin):
             realm_name = realm.slug
         else:
             realm_name = wowthon.WoWAPI.realm_name_to_slug(realm)
-            
+
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'char', realm_name,
                                       name.lower())
@@ -430,11 +430,11 @@ class WoWAPI(wowthon._FetchMixin):
             self._cache_set(data, region, locale, 'char', realm_name,
                             name.lower())
         return data
-        
+
     def get_achieve(self, id, region=None, locale=None, use_cache=True):
         """
         Get an Achievement object for the specified ID.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
@@ -449,11 +449,11 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(data, region, locale, 'ach', id)
         return data
-        
+
     def get_quest(self, id, region=None, locale=None, use_cache=True):
         """
         Return a Quest object for the specified ID.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
@@ -468,15 +468,15 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(data, region, locale, 'quest', id)
         return data
-        
+
     def get_item(self, id, region=None, locale=None, use_cache=True):
         """
         Return an Item object for the specified ID.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
-        
+
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'item', id)
             if cdata:
@@ -488,112 +488,112 @@ class WoWAPI(wowthon._FetchMixin):
         if use_cache:
             self._cache_set(data, region, locale, 'item', id)
         return data
-        
+
     def get_arena_team(self, size, name, realm=None, region=None,
                        locale=None):
         """
         Return the arena team specified.
-        
+
         """
         return wowthon.ArenaTeam(self, size, name, realm=realm, region=region,
                                  locale=locale)
-                                 
+
     #
     # Data API methods
     #
-    
+
     def list_all_realm_names(self, region=None):
         """
         List the slug of every realm in the specified region.
-        
+
         If no region is specified, the current API's region is used.
-        
+
         """
         # TODO Cache this
         if not region: region = self.region
-        
+
         url = wowthon.REGION[region]['prefix'] + 'realm/status'
         json = self._get_json(url)
         ret = []
         for realm in json['realms']:
             ret.append(realm['slug'])
         return ret
-    
+
     def get_item_classes(self, region=None, locale=None, use_cache=True):
         """
         Return a dictionary mapping an item class id to their localised
         name.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
-        
+
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'item_class')
             if cdata:
                 return cdata
-        
+
         # Data not cached or cache not being used
         url = wowthon.REGION[region]['prefix'] + 'data/item/classes' + \
               '?locale=' + locale
         data = self._get_json(url)
-        
+
         ret = {}
         for ic in data['classes']:
             ret.update({ic['class'] : ic['name']})
-        
+
         if use_cache:
             self._cache_set(ret, region, locale, 'item_class')
         return ret
-        
+
     def get_battlegroups(self, region=None, use_cache=True):
         """
         Returns a list of dictionaries containing battlegroup information.
-        
+
         The dictionaries have the following fields:
         name -- the display name of the battlegroup
         slug -- the slug used to internally represent the battlegroup
-        
+
         """
         if not region: region = self.region
-        
+
         if use_cache:
             cdata = self._cache_fetch(region, 'battlegroups')
             if cdata:
                 return cdata
-                
+
         # Data not cached or cache not being used
         url = wowthon.REGION[region]['prefix'] + 'data/battlegroups/'
         data = self._get_json(url)['battlegroups']
-        
+
         if use_cache:
             self._cache_set(data, region, 'battlegroups')
         return data
-        
+
     def get_classes(self, region=None, locale=None, use_cache=True):
         """
         Return a list of dictionaries describing classes in the game.
-        
+
         The dictionaries have the following fields:
         id -- the class id
         mask -- the class's bitmask
         power_type -- the resource the class uses
         name -- the localised name of the class
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
-        
+
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'classes')
             if cdata: return cdata
-            
+
         url = wowthon.REGION[region]['prefix'] + 'data/character/classes' + \
               '?locale=' + locale
         data = self._get_json(url)['classes']
-        
+
         ret = []
-        
+
         for cls in data:
             pycls = {
                 'id' : cls['id'],
@@ -602,28 +602,28 @@ class WoWAPI(wowthon._FetchMixin):
                 'name' : cls['name'],
             }
             ret.append(pycls)
-        
+
         if use_cache:
             self._cache_set(ret, region, locale, 'classes')
         return ret
-        
+
     def get_races(self, region=None, locale=None, use_cache=True):
         """
         Return a list of dictionaries providing information on character
         races.
-        
+
         """
         if not region: region = self.region
         if not locale: locale = self.locale
-        
+
         if use_cache:
             cdata = self._cache_fetch(region, locale, 'races')
             if cdata: return cdata
-            
+
         url = wowthon.REGION[region]['prefix'] + 'data/character/races' + \
               '?locale=' + locale
         data = self._get_json(url)['races']
-        
+
         if use_cache:
             self._cache_set(data, region, locale, 'races')
         return data

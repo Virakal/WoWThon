@@ -2,7 +2,7 @@
 __version__ = '0.3.0a'
 
 __all__ = [
-    'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction', 
+    'WoWAPI', 'Realm', 'Guild', 'GuildEmblem', 'Character', 'Auction',
     'AuctionListings', 'Item', 'TalentSpec', 'Quest', 'Achievement',
     'ItemSet', 'ArenaTeam', 'APIError'
 ]

@@ -5,7 +5,7 @@ standard output.
 
 Not pretty, but that's easily fixed. Try
     roster.py > roster.htm
-    
+
 to produce an html file.
 
 '''
@@ -26,7 +26,7 @@ HTML_PREFIX = '''
         <td>Race</td>
         <td>Class</td>
         <td>Armory Link</td>
-    </tr>    
+    </tr>
 '''
 
 MEMBER_TEMPLATE = '''
@@ -67,6 +67,6 @@ for rank, member in roster:
         rank=rank,
         link=link
     )
-    
+
 output += HTML_SUFFIX
 print(output)
